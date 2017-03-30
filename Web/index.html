@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>POC application</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <div id="login">
+        <input type="text" id="userName" />
+        <input type="text" id="password" />
+        <input type="button" id="loginButton" value="login" />
+    </div>
+    <div id="logout" style="display: none">
+        <input type="button" id="logoutButton" value="logout" />
+    </div>
+    <div id="items" style="display: none">
+        <input type="button" id="addItemButton" value="add item" />
+        <input type="button" id="endEditButton" value="end edit" />
+        <ul id="itemList"></ul>
+    </div>
+    <script src="Scripts/jquery-3.1.1.min.js"></script>
+    <script src="Scripts/jquery.signalR-2.2.1.min.js"></script>
+    <script src="wcfproxy/signalr/hubs"></script>
+    <script type="text/javascript" language="javascript">
+        $(function () {
+            var whiteBoardHub = $.connection.whiteBoardHub;
+            whiteBoardHub.client.broadcastMessage = function (item) {
+                $('#itemList').append('<li>' + item + '</li>');
+            };
+            $.connection.hub.start().done(function () {
+                $("#addItemButton").click(function () {
+                    var item = "1";
+                    $.ajax({
+                        method: "POST",
+                        url: "/wcfproxy/ServiceProxy.svc/whiteboardadd",
+                        data: '{ "item": "' + item + '" }',
+                        contentType: "application/json; charset=UTF-8"
+                    })
+                        .done(function () {
+                            whiteBoardHub.server.sendNewAddedItem(item);
+                        })
+                        .fail(function () {
+                            alert("unable to add item");
+                        });
+                });
+            });
+            $("#loginButton").click(function () {
+                var userName = $("#userName").val();
+                var password = $("#password").val();
+                $.ajax({
+                    method: "POST",
+                    url: "/wcfproxy/ServiceProxy.svc/login",
+                    data: '{ "userName": "' + userName + '", "password": "' + password + '" }',
+                    contentType: "application/json; charset=UTF-8"
+                })
+                    .done(function () {
+                        $("#login").hide();
+                        $("#logout").show();
+                        $("#items").show();
+                        showItems();
+                    })
+                    .fail(function () {
+                        alert("unable to login");
+                    });
+            });
+            $("#logoutButton").click(function () {
+                $.ajax({
+                    method: "POST",
+                    url: "/wcfproxy/ServiceProxy.svc/logout"
+                })
+                    .done(function () {
+                        $("#logout").hide();
+                        $("#items").hide();
+                        $("#login").show();
+                    })
+                    .fail(function () {
+                        alert("unable to logout");
+                    });
+            });
+            $("#endEditButton").click(function () {
+                $.ajax({
+                    method: "POST",
+                    url: "/wcfproxy/ServiceProxy.svc/whiteboardendedit"
+                })
+                    .done(function () {
+                        alert("edit finished");
+                    })
+                    .fail(function () {
+                        alert("unable to end edit");
+                    });
+            });
+        });
+
+        function showItems() {
+            $.ajax({
+                method: "GET",
+                url: "/wcfproxy/ServiceProxy.svc/WhiteBoardGetItems",
+                cache: false,
+                contentType: "application/json; charset=UTF-8"
+            })
+                .done(function (data) {
+                    $('#itemList').empty();
+                    var items = [];
+                    $.each(data, function (i, item) {
+                        items.push('<li>' + item + '</li>');
+                    });
+                    $('#itemList').append(items.join(''));
+                })
+                .fail(function () {
+                    alert("unable to fetch data");
+                });
+        }
+    </script>
+</body>
+</html>

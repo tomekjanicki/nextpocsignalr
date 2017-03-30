@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Service" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:39345/Service.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:39345/Service.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:39345/Service.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Shared" />
+      <xsd:import schemaLocation="http://localhost:39345/Service.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IService_WhiteBoardAdd_InputMessage">
+    <wsdl:part name="parameters" element="tns:WhiteBoardAdd" />
+  </wsdl:message>
+  <wsdl:message name="IService_WhiteBoardAdd_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WhiteBoardAddResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_WhiteBoardEndEdit_InputMessage">
+    <wsdl:part name="parameters" element="tns:WhiteBoardEndEdit" />
+  </wsdl:message>
+  <wsdl:message name="IService_WhiteBoardEndEdit_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WhiteBoardEndEditResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_WhiteBoardGetItems_InputMessage">
+    <wsdl:part name="parameters" element="tns:WhiteBoardGetItems" />
+  </wsdl:message>
+  <wsdl:message name="IService_WhiteBoardGetItems_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WhiteBoardGetItemsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_Login_InputMessage">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="IService_Login_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_Logout_InputMessage">
+    <wsdl:part name="parameters" element="tns:Logout" />
+  </wsdl:message>
+  <wsdl:message name="IService_Logout_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LogoutResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IService">
+    <wsdl:operation name="WhiteBoardAdd">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/WhiteBoardAdd" message="tns:IService_WhiteBoardAdd_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/WhiteBoardAddResponse" message="tns:IService_WhiteBoardAdd_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WhiteBoardEndEdit">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/WhiteBoardEndEdit" message="tns:IService_WhiteBoardEndEdit_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/WhiteBoardEndEditResponse" message="tns:IService_WhiteBoardEndEdit_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WhiteBoardGetItems">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/WhiteBoardGetItems" message="tns:IService_WhiteBoardGetItems_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/WhiteBoardGetItemsResponse" message="tns:IService_WhiteBoardGetItems_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/Login" message="tns:IService_Login_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/LoginResponse" message="tns:IService_Login_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/Logout" message="tns:IService_Logout_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/LogoutResponse" message="tns:IService_Logout_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IService" type="tns:IService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="WhiteBoardAdd">
+      <soap:operation soapAction="http://tempuri.org/IService/WhiteBoardAdd" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WhiteBoardEndEdit">
+      <soap:operation soapAction="http://tempuri.org/IService/WhiteBoardEndEdit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WhiteBoardGetItems">
+      <soap:operation soapAction="http://tempuri.org/IService/WhiteBoardGetItems" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="http://tempuri.org/IService/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <soap:operation soapAction="http://tempuri.org/IService/Logout" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service">
+    <wsdl:port name="BasicHttpBinding_IService" binding="tns:BasicHttpBinding_IService">
+      <soap:address location="http://localhost:39345/Service.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
