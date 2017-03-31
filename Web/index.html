@@ -37,7 +37,14 @@
                         contentType: "application/json; charset=UTF-8"
                     })
                         .done(function () {
-                            whiteBoardHub.server.sendNewAddedItem(item);
+                            $.ajax({
+                                method: "POST",
+                                url: "/webrealtime/WhiteBoardService.svc/sendnewaddeditem",
+                                data: '{ "item": "' + item + '" }',
+                                contentType: "application/json; charset=UTF-8"
+                            }).fail(function() {
+                                alert("unable to send notification");
+                            });
                         })
                         .fail(function () {
                             alert("unable to add item");
