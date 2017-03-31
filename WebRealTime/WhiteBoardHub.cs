@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNet.SignalR;
 
-namespace WcfProxy
+namespace WebRealTime
 {
     public sealed class WhiteBoardHub : Hub
     {
