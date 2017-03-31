@@ -13,44 +13,21 @@
     <div id="logout" style="display: none">
         <input type="button" id="logoutButton" value="logout" />
     </div>
-    <div id="items" style="display: none">
-        <input type="button" id="addItemButton" value="add item" />
-        <input type="button" id="endEditButton" value="end edit" />
-        <ul id="itemList"></ul>
+    <div id="pages" style="display: none">
+        <div id="pagesList"></div>
     </div>
+<div id="items" style="display: none">
+    <p id="desc"></p>
+    <input type="hidden" id="pageId"/>
+    <input type="button" id="addItemButton" value="add item"/>
+    <input type="button" id="endEditButton" value="end edit"/>
+    <ul id="itemList"></ul>
+</div>
     <script src="Scripts/jquery-3.1.1.min.js"></script>
     <script src="Scripts/jquery.signalR-2.2.1.min.js"></script>
     <script src="webrealtime/signalr/hubs"></script>
     <script type="text/javascript" language="javascript">
         $(function () {
-            var whiteBoardHub = $.connection.whiteBoardHub;
-            whiteBoardHub.client.broadcastMessage = function (item) {
-                $('#itemList').append('<li>' + item + '</li>');
-            };
-            $.connection.hub.start().done(function () {
-                $("#addItemButton").click(function () {
-                    var item = "1";
-                    $.ajax({
-                        method: "POST",
-                        url: "/wcfproxy/ServiceProxy.svc/whiteboardadd",
-                        data: '{ "item": "' + item + '" }',
-                        contentType: "application/json; charset=UTF-8"
-                    })
-                        .done(function () {
-                            $.ajax({
-                                method: "POST",
-                                url: "/webrealtime/WhiteBoardService.svc/sendnewaddeditem",
-                                data: '{ "item": "' + item + '" }',
-                                contentType: "application/json; charset=UTF-8"
-                            }).fail(function() {
-                                alert("unable to send notification");
-                            });
-                        })
-                        .fail(function () {
-                            alert("unable to add item");
-                        });
-                });
-            });
             $("#loginButton").click(function () {
                 var userName = $("#userName").val();
                 var password = $("#password").val();
@@ -63,8 +40,8 @@
                     .done(function () {
                         $("#login").hide();
                         $("#logout").show();
-                        $("#items").show();
-                        showItems();
+                        $("#pages").show();
+                        showPages();
                     })
                     .fail(function () {
                         alert("unable to login");
@@ -78,16 +55,51 @@
                     .done(function () {
                         $("#logout").hide();
                         $("#items").hide();
+                        $("#pages").hide();
                         $("#login").show();
                     })
                     .fail(function () {
                         alert("unable to logout");
                     });
             });
+
+
+            var whiteBoardHub = $.connection.whiteBoardHub;
+            whiteBoardHub.client.broadcastMessage = function (item) {
+                $('#itemList').append('<li>' + item + '</li>');
+            };
+            $.connection.hub.start().done(function () {
+                $("#addItemButton").click(function () {
+                    var item = "1";
+                    var page = $("#pageId").val();
+                    $.ajax({
+                        method: "POST",
+                        url: "/wcfproxy/ServiceProxy.svc/whiteboardadd",
+                        data: '{ "item": "' + item + '", "page": "' + page +'" }',
+                        contentType: "application/json; charset=UTF-8"
+                    })
+                        .done(function () {
+                            //$.ajax({
+                            //    method: "POST",
+                            //    url: "/webrealtime/WhiteBoardService.svc/sendnewaddeditem",
+                            //    data: '{ "item": "' + item + '" }',
+                            //    contentType: "application/json; charset=UTF-8"
+                            //}).fail(function () {
+                            //    alert("unable to send notification");
+                            //});
+                        })
+                        .fail(function () {
+                            alert("unable to add item");
+                        });
+                });
+            });
             $("#endEditButton").click(function () {
+                var page = $("#pageId").val();
                 $.ajax({
                     method: "POST",
-                    url: "/wcfproxy/ServiceProxy.svc/whiteboardendedit"
+                    url: "/wcfproxy/ServiceProxy.svc/whiteboardendedit",
+                    data: '{ "pagex": "' + page + '" }',
+                    contentType: "application/json; charset=UTF-8"
                 })
                     .done(function () {
                         alert("edit finished");
@@ -98,14 +110,18 @@
             });
         });
 
-        function showItems() {
+        function showItems(page) {
             $.ajax({
                 method: "GET",
-                url: "/wcfproxy/ServiceProxy.svc/WhiteBoardGetItems",
+                url: "/wcfproxy/ServiceProxy.svc/WhiteBoardGetItems?page=" + page,
                 cache: false,
                 contentType: "application/json; charset=UTF-8"
             })
                 .done(function (data) {
+                    $("#pages").hide();
+                    $("#items").show();
+                    $("#desc").text("Page " + page);
+                    $("#pageId").val(page);
                     $('#itemList').empty();
                     var items = [];
                     $.each(data, function (i, item) {
@@ -117,6 +133,31 @@
                     alert("unable to fetch data");
                 });
         }
+
+        function showPages() {
+            $.ajax({
+                method: "GET",
+                url: "/wcfproxy/ServiceProxy.svc/WhiteBoardGetPages",
+                cache: false,
+                contentType: "application/json; charset=UTF-8"
+            })
+                .done(function (data) {
+                    $('#pagesList').empty();
+                    var items = [];
+                    $.each(data, function (i, item) {
+                        items.push('<input type="button" class="page" data-page="' + item + '" value="' + item + '"/></br>');
+                    });
+                    $('#pagesList').append(items.join(''));
+                    $(".page").on("click", function () {
+                        var page = $(this).attr('data-page');
+                        showItems(page);
+                    });
+                })
+                .fail(function () {
+                    alert("unable to fetch data");
+                });
+        }
+
     </script>
 </body>
 </html>

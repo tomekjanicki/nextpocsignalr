@@ -9,27 +9,34 @@ namespace Wcf
         private readonly Authentication _authentication = new Authentication();
         private readonly Whiteboard _whiteboard = new Whiteboard();
 
-        public WebContextData WhiteBoardAdd(int item, WebContextData data)
+        public WebContextData WhiteBoardAdd(int item, int page, WebContextData data)
         {
             var sessionId = GetSessionId(data);
             var userName = _authentication.GetUserName(sessionId);
-            _whiteboard.Add(item, userName);
+            _whiteboard.Add(item, userName, page);
             return data;
         }
 
-        public WebContextData WhiteBoardEndEdit(WebContextData data)
+        public WebContextData WhiteBoardEndEdit(int page, WebContextData data)
         {
             var sessionId = GetSessionId(data);
             var userName = _authentication.GetUserName(sessionId);
-            _whiteboard.EndEdit(userName);
+            _whiteboard.EndEdit(userName, page);
             return data;
         }
 
-        public GetItems WhiteBoardGetItems(WebContextData data)
+        public GetPages WhiteBoardGetPages(WebContextData data)
         {
             var sessionId = GetSessionId(data);
             _authentication.CheckSession(sessionId);
-            return new GetItems { Data = data, Items = _whiteboard.GetItems() };
+            return new GetPages { Data = data, Items = _whiteboard.GetPages() };
+        }
+
+        public GetItems WhiteBoardGetItems(int page, WebContextData data)
+        {
+            var sessionId = GetSessionId(data);
+            _authentication.CheckSession(sessionId);
+            return new GetItems { Data = data, Items = _whiteboard.GetItems(page) };
         }
 
         public WebContextData Login(string userName, string password, WebContextData data)

@@ -16,22 +16,28 @@ namespace WcfProxy.Service {
     public interface IService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardAdd", ReplyAction="http://tempuri.org/IService/WhiteBoardAddResponse")]
-        Shared.WebContextData WhiteBoardAdd(int item, Shared.WebContextData data);
+        Shared.WebContextData WhiteBoardAdd(int item, int page, Shared.WebContextData data);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardAdd", ReplyAction="http://tempuri.org/IService/WhiteBoardAddResponse")]
-        System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardAddAsync(int item, Shared.WebContextData data);
+        System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardAddAsync(int item, int page, Shared.WebContextData data);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardEndEdit", ReplyAction="http://tempuri.org/IService/WhiteBoardEndEditResponse")]
-        Shared.WebContextData WhiteBoardEndEdit(Shared.WebContextData data);
+        Shared.WebContextData WhiteBoardEndEdit(int page, Shared.WebContextData data);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardEndEdit", ReplyAction="http://tempuri.org/IService/WhiteBoardEndEditResponse")]
-        System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardEndEditAsync(Shared.WebContextData data);
+        System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardEndEditAsync(int page, Shared.WebContextData data);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardGetItems", ReplyAction="http://tempuri.org/IService/WhiteBoardGetItemsResponse")]
-        Shared.GetItems WhiteBoardGetItems(Shared.WebContextData data);
+        Shared.GetItems WhiteBoardGetItems(int page, Shared.WebContextData data);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardGetItems", ReplyAction="http://tempuri.org/IService/WhiteBoardGetItemsResponse")]
-        System.Threading.Tasks.Task<Shared.GetItems> WhiteBoardGetItemsAsync(Shared.WebContextData data);
+        System.Threading.Tasks.Task<Shared.GetItems> WhiteBoardGetItemsAsync(int page, Shared.WebContextData data);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardGetPages", ReplyAction="http://tempuri.org/IService/WhiteBoardGetPagesResponse")]
+        Shared.GetPages WhiteBoardGetPages(Shared.WebContextData data);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardGetPages", ReplyAction="http://tempuri.org/IService/WhiteBoardGetPagesResponse")]
+        System.Threading.Tasks.Task<Shared.GetPages> WhiteBoardGetPagesAsync(Shared.WebContextData data);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/Login", ReplyAction="http://tempuri.org/IService/LoginResponse")]
         Shared.WebContextData Login(string userName, string password, Shared.WebContextData data);
@@ -73,28 +79,36 @@ namespace WcfProxy.Service {
                 base(binding, remoteAddress) {
         }
         
-        public Shared.WebContextData WhiteBoardAdd(int item, Shared.WebContextData data) {
-            return base.Channel.WhiteBoardAdd(item, data);
+        public Shared.WebContextData WhiteBoardAdd(int item, int page, Shared.WebContextData data) {
+            return base.Channel.WhiteBoardAdd(item, page, data);
         }
         
-        public System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardAddAsync(int item, Shared.WebContextData data) {
-            return base.Channel.WhiteBoardAddAsync(item, data);
+        public System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardAddAsync(int item, int page, Shared.WebContextData data) {
+            return base.Channel.WhiteBoardAddAsync(item, page, data);
         }
         
-        public Shared.WebContextData WhiteBoardEndEdit(Shared.WebContextData data) {
-            return base.Channel.WhiteBoardEndEdit(data);
+        public Shared.WebContextData WhiteBoardEndEdit(int page, Shared.WebContextData data) {
+            return base.Channel.WhiteBoardEndEdit(page, data);
         }
         
-        public System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardEndEditAsync(Shared.WebContextData data) {
-            return base.Channel.WhiteBoardEndEditAsync(data);
+        public System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardEndEditAsync(int page, Shared.WebContextData data) {
+            return base.Channel.WhiteBoardEndEditAsync(page, data);
         }
         
-        public Shared.GetItems WhiteBoardGetItems(Shared.WebContextData data) {
-            return base.Channel.WhiteBoardGetItems(data);
+        public Shared.GetItems WhiteBoardGetItems(int page, Shared.WebContextData data) {
+            return base.Channel.WhiteBoardGetItems(page, data);
         }
         
-        public System.Threading.Tasks.Task<Shared.GetItems> WhiteBoardGetItemsAsync(Shared.WebContextData data) {
-            return base.Channel.WhiteBoardGetItemsAsync(data);
+        public System.Threading.Tasks.Task<Shared.GetItems> WhiteBoardGetItemsAsync(int page, Shared.WebContextData data) {
+            return base.Channel.WhiteBoardGetItemsAsync(page, data);
+        }
+        
+        public Shared.GetPages WhiteBoardGetPages(Shared.WebContextData data) {
+            return base.Channel.WhiteBoardGetPages(data);
+        }
+        
+        public System.Threading.Tasks.Task<Shared.GetPages> WhiteBoardGetPagesAsync(Shared.WebContextData data) {
+            return base.Channel.WhiteBoardGetPagesAsync(data);
         }
         
         public Shared.WebContextData Login(string userName, string password, Shared.WebContextData data) {

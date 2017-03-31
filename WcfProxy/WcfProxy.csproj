@@ -63,6 +63,7 @@
   <ItemGroup>
     <Content Include="Properties\DataSources\Shared.GetItems.datasource" />
     <Content Include="Properties\DataSources\Shared.WebContextData.datasource" />
+    <Content Include="Properties\DataSources\Shared.GetPages.datasource" />
     <None Include="Service References\Service\Service.disco" />
     <None Include="Service References\Service\configuration91.svcinfo" />
     <None Include="Service References\Service\configuration.svcinfo" />
@@ -72,10 +73,6 @@
     </None>
     <Content Include="ServiceProxy.svc" />
     <Content Include="Web.config" />
-    <None Include="Service References\Service\Service.wsdl" />
-    <None Include="Service References\Service\Service1.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Service References\Service\Reference.cs">
@@ -94,13 +91,17 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\Service\Service.wsdl" />
     <None Include="Service References\Service\Service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Service\Service1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\Service\Service2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\Service\Service21.xsd">
+    <None Include="Service References\Service\Service3.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Web.Debug.config">
@@ -111,13 +112,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\Service\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Shared\Shared.csproj">
       <Project>{5cac93df-8f8d-4b0f-aa58-801e991b39e8}</Project>
       <Name>Shared</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\Service\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

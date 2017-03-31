@@ -8,13 +8,16 @@ namespace Wcf
     {
 
         [OperationContract]
-        WebContextData WhiteBoardAdd(int item, WebContextData data);
+        WebContextData WhiteBoardAdd(int item, int page, WebContextData data);
 
         [OperationContract]
-        WebContextData WhiteBoardEndEdit(WebContextData data);
+        WebContextData WhiteBoardEndEdit(int page, WebContextData data);
 
         [OperationContract]
-        GetItems WhiteBoardGetItems(WebContextData data);
+        GetItems WhiteBoardGetItems(int page, WebContextData data);
+
+        [OperationContract]
+        GetPages WhiteBoardGetPages(WebContextData data);
 
         [OperationContract]
         WebContextData Login(string userName, string password, WebContextData data);

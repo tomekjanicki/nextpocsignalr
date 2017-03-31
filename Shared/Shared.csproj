@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base.cs" />
     <Compile Include="GetItems.cs" />
+    <Compile Include="GetPages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebContextData.cs" />
   </ItemGroup>
