@@ -10,6 +10,7 @@ namespace Wcf.Code
         {
             new User("u1", "p1"),
             new User("u2", "p2"),
+            new User("u3", "p3")
         };
 
 

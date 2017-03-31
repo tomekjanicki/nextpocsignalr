@@ -65,8 +65,11 @@
 
 
             var whiteBoardHub = $.connection.whiteBoardHub;
-            whiteBoardHub.client.broadcastMessage = function (item) {
-                $('#itemList').append('<li>' + item + '</li>');
+            whiteBoardHub.client.broadcastMessage = function (item, page) {
+                var currentPage = $("#pageId").val();
+                if (currentPage === page.toString()) {
+                    $('#itemList').append('<li>' + item + '</li>');
+                }                
             };
             $.connection.hub.start().done(function () {
                 $("#addItemButton").click(function () {
@@ -79,14 +82,14 @@
                         contentType: "application/json; charset=UTF-8"
                     })
                         .done(function () {
-                            //$.ajax({
-                            //    method: "POST",
-                            //    url: "/webrealtime/WhiteBoardService.svc/sendnewaddeditem",
-                            //    data: '{ "item": "' + item + '" }',
-                            //    contentType: "application/json; charset=UTF-8"
-                            //}).fail(function () {
-                            //    alert("unable to send notification");
-                            //});
+                            $.ajax({
+                                method: "POST",
+                                url: "/webrealtime/WhiteBoardService.svc/sendnewaddeditem",
+                                data: '{ "item": "' + item + '", "page": "' + page + '" }',
+                                contentType: "application/json; charset=UTF-8"
+                            }).fail(function () {
+                                alert("unable to send notification");
+                            });
                         })
                         .fail(function () {
                             alert("unable to add item");

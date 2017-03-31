@@ -8,7 +8,7 @@ namespace WebRealTime
     {
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped, UriTemplate = "/SendNewAddedItem")]
-        void SendNewAddedItem(int item);
+        void SendNewAddedItem(int item, int page);
     }
 
 

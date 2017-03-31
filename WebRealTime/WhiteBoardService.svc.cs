@@ -4,10 +4,10 @@ namespace WebRealTime
 {
     public sealed class WhiteBoardService : IWhiteBoardService
     {
-        public void SendNewAddedItem(int item)
+        public void SendNewAddedItem(int item, int page)
         {
             var hubContext = GlobalHost.ConnectionManager.GetHubContext<WhiteBoardHub>();
-            hubContext.Clients.All.broadcastMessage(item);
+            hubContext.Clients.All.broadcastMessage(item, page);
         }
     }
 }
