@@ -95,6 +95,22 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Properties\DataSources\Shared.GetItems.datasource" />
+    <Content Include="Properties\DataSources\Shared.GetPages.datasource" />
+    <Content Include="Properties\DataSources\Shared.WebContextData.datasource" />
+    <None Include="Service References\Service\Service.wsdl" />
+    <None Include="Service References\Service\Service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Service\Service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Service\Service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Service\Service3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -103,15 +119,38 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\Service\Service.disco" />
+    <None Include="Service References\Service\configuration91.svcinfo" />
+    <None Include="Service References\Service\configuration.svcinfo" />
+    <None Include="Service References\Service\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IWhiteBoardService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\Service\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="WhiteBoardHub.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\Shared.csproj">
+      <Project>{5cac93df-8f8d-4b0f-aa58-801e991b39e8}</Project>
+      <Name>Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\Service\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -24,5 +24,8 @@ namespace Wcf
 
         [OperationContract]
         WebContextData Logout(WebContextData data);
+
+        [OperationContract]
+        WebContextData ShouldSendNotification(WebContextData data);
     }
 }

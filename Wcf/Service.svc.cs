@@ -55,6 +55,13 @@ namespace Wcf
             return data;
         }
 
+        public WebContextData ShouldSendNotification(WebContextData data)
+        {
+            var sessionId = GetSessionId(data);
+            _authentication.CheckSession(sessionId);
+            return data;
+        }
+
         private static Guid GetSessionId(WebContextData data)
         {
             var storedWebOperationContext = new StoredWebOperationContext(data);

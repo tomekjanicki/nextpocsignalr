@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WcfProxy.Service {
+namespace WebRealTime.Service {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -59,12 +59,12 @@ namespace WcfProxy.Service {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IServiceChannel : WcfProxy.Service.IService, System.ServiceModel.IClientChannel {
+    public interface IServiceChannel : WebRealTime.Service.IService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ServiceClient : System.ServiceModel.ClientBase<WcfProxy.Service.IService>, WcfProxy.Service.IService {
+    public partial class ServiceClient : System.ServiceModel.ClientBase<WebRealTime.Service.IService>, WebRealTime.Service.IService {
         
         public ServiceClient() {
         }

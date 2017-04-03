@@ -1,6 +1,9 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
+using Shared;
+using WebRealTime.Service;
 
 namespace WebRealTime
 {
@@ -29,12 +32,19 @@ namespace WebRealTime
 
         private void CheckSecurity()
         {
-            if (Context.RequestCookies.ContainsKey("sessionId"))
+            using (var client = new ServiceClient())
             {
-                return;
+                client.ShouldSendNotification(GetContextData(Context.RequestCookies));
             }
-
-            throw new InvalidOperationException();
         }
+
+        private static WebContextData GetContextData(IDictionary<string, Cookie> cookies)
+        {
+            return new WebContextData
+            {
+                CookiesIn = cookies.ToDictionary(pair => pair.Value.Name, pair => pair.Value.Value.ToString())
+            };
+        }
+
     }
 }
