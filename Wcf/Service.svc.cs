@@ -12,16 +12,8 @@ namespace Wcf
         public WebContextData WhiteBoardAdd(int item, int page, WebContextData data)
         {
             var sessionId = GetSessionId(data);
-            var userName = _authentication.GetUserName(sessionId);
-            _whiteboard.Add(item, userName, page);
-            return data;
-        }
-
-        public WebContextData WhiteBoardEndEdit(int page, WebContextData data)
-        {
-            var sessionId = GetSessionId(data);
-            var userName = _authentication.GetUserName(sessionId);
-            _whiteboard.EndEdit(userName, page);
+            _authentication.CheckSession(sessionId);
+            _whiteboard.Add(item, page);
             return data;
         }
 

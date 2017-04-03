@@ -17,15 +17,6 @@ namespace WcfProxy
             }
         }
 
-        public void WhiteBoardEndEdit(int pageNumber)
-        {
-            using (var client = new ServiceClient())
-            {
-                var data = client.WhiteBoardEndEdit(pageNumber, GetContextData());
-                _webOperationContextWrapper.UpdateContext(data);
-            }
-        }
-
         public IEnumerable<int> WhiteBoardGetItems(int page)
         {
             using (var client = new ServiceClient())

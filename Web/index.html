@@ -20,7 +20,6 @@
         <p id="desc"></p>
         <input type="hidden" id="pageId" />
         <input type="button" id="addItemButton" value="add item" />
-        <input type="button" id="endEditButton" value="end edit" />
         <ul id="itemList"></ul>
     </div>
     <script src="Scripts/jquery-3.1.1.min.js"></script>
@@ -88,21 +87,6 @@
                             alert("unable to add item");
                         });
                 });
-            });
-            $("#endEditButton").click(function () {
-                var page = $("#pageId").val();
-                $.ajax({
-                    method: "POST",
-                    url: "/wcfproxy/ServiceProxy.svc/whiteboardendedit",
-                    data: '{ "pageNumber": "' + page + '" }',
-                    contentType: "application/json; charset=UTF-8"
-                })
-                    .done(function () {
-                        alert("edit finished");
-                    })
-                    .fail(function () {
-                        alert("unable to end edit");
-                    });
             });
         });
 

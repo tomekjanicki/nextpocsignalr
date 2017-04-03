@@ -14,12 +14,6 @@
   <wsdl:message name="IService_WhiteBoardAdd_OutputMessage">
     <wsdl:part name="parameters" element="tns:WhiteBoardAddResponse" />
   </wsdl:message>
-  <wsdl:message name="IService_WhiteBoardEndEdit_InputMessage">
-    <wsdl:part name="parameters" element="tns:WhiteBoardEndEdit" />
-  </wsdl:message>
-  <wsdl:message name="IService_WhiteBoardEndEdit_OutputMessage">
-    <wsdl:part name="parameters" element="tns:WhiteBoardEndEditResponse" />
-  </wsdl:message>
   <wsdl:message name="IService_WhiteBoardGetItems_InputMessage">
     <wsdl:part name="parameters" element="tns:WhiteBoardGetItems" />
   </wsdl:message>
@@ -55,10 +49,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IService/WhiteBoardAdd" message="tns:IService_WhiteBoardAdd_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService/WhiteBoardAddResponse" message="tns:IService_WhiteBoardAdd_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="WhiteBoardEndEdit">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService/WhiteBoardEndEdit" message="tns:IService_WhiteBoardEndEdit_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService/WhiteBoardEndEditResponse" message="tns:IService_WhiteBoardEndEdit_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="WhiteBoardGetItems">
       <wsdl:input wsaw:Action="http://tempuri.org/IService/WhiteBoardGetItems" message="tns:IService_WhiteBoardGetItems_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService/WhiteBoardGetItemsResponse" message="tns:IService_WhiteBoardGetItems_OutputMessage" />
@@ -84,15 +74,6 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="WhiteBoardAdd">
       <soap:operation soapAction="http://tempuri.org/IService/WhiteBoardAdd" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="WhiteBoardEndEdit">
-      <soap:operation soapAction="http://tempuri.org/IService/WhiteBoardEndEdit" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

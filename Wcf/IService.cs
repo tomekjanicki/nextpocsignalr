@@ -11,9 +11,6 @@ namespace Wcf
         WebContextData WhiteBoardAdd(int item, int page, WebContextData data);
 
         [OperationContract]
-        WebContextData WhiteBoardEndEdit(int page, WebContextData data);
-
-        [OperationContract]
         GetItems WhiteBoardGetItems(int page, WebContextData data);
 
         [OperationContract]

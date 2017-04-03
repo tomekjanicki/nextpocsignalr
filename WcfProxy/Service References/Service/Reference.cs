@@ -21,12 +21,6 @@ namespace WcfProxy.Service {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardAdd", ReplyAction="http://tempuri.org/IService/WhiteBoardAddResponse")]
         System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardAddAsync(int item, int page, Shared.WebContextData data);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardEndEdit", ReplyAction="http://tempuri.org/IService/WhiteBoardEndEditResponse")]
-        Shared.WebContextData WhiteBoardEndEdit(int page, Shared.WebContextData data);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardEndEdit", ReplyAction="http://tempuri.org/IService/WhiteBoardEndEditResponse")]
-        System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardEndEditAsync(int page, Shared.WebContextData data);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardGetItems", ReplyAction="http://tempuri.org/IService/WhiteBoardGetItemsResponse")]
         Shared.GetItems WhiteBoardGetItems(int page, Shared.WebContextData data);
         
@@ -91,14 +85,6 @@ namespace WcfProxy.Service {
         
         public System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardAddAsync(int item, int page, Shared.WebContextData data) {
             return base.Channel.WhiteBoardAddAsync(item, page, data);
-        }
-        
-        public Shared.WebContextData WhiteBoardEndEdit(int page, Shared.WebContextData data) {
-            return base.Channel.WhiteBoardEndEdit(page, data);
-        }
-        
-        public System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardEndEditAsync(int page, Shared.WebContextData data) {
-            return base.Channel.WhiteBoardEndEditAsync(page, data);
         }
         
         public Shared.GetItems WhiteBoardGetItems(int page, Shared.WebContextData data) {

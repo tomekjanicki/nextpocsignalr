@@ -26,17 +26,6 @@ namespace Wcf.Code
             return sessionId;
         }
 
-        public string GetUserName(Guid sessionId)
-        {
-            var user = Users.FirstOrDefault(u => u.SessionId != null && u.SessionId.Value == sessionId);
-            if (user == null)
-            {
-                throw new InvalidOperationException();
-            }
-
-            return user.UserName;
-        }
-
         public void CheckSession(Guid sessionId)
         {
             var user = Users.FirstOrDefault(u => u.SessionId != null && u.SessionId.Value == sessionId);

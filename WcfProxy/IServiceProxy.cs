@@ -12,10 +12,6 @@ namespace WcfProxy
         void WhiteBoardAdd(int item, int page);
 
         [OperationContract]
-        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped, UriTemplate = "/WhiteBoardEndEdit")]
-        void WhiteBoardEndEdit(int pageNumber);
-
-        [OperationContract]
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "/WhiteBoardGetItems?page={page}")]
         IEnumerable<int> WhiteBoardGetItems(int page);
 
