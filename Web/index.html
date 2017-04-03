@@ -28,7 +28,7 @@
     <script type="text/javascript" language="javascript">
         $(function () {
             var whiteBoardHub = $.connection.whiteBoardHub;
-            whiteBoardHub.client.broadcastMessage = function (item) {
+            whiteBoardHub.client.newItemAdded = function (item) {
                 var encodedItem = $('<div/>').text(item).html();
                 $('#itemList').append('<li>' + encodedItem + '</li>');
             };
@@ -81,7 +81,7 @@
                         contentType: "application/json; charset=UTF-8"
                     })
                         .done(function () {
-                            whiteBoardHub.server.sendNewAddedItem(item, page);
+                            whiteBoardHub.server.sendNewItemAdded(item, page);
                         })
                         .fail(function () {
                             alert("unable to add item");
