@@ -138,7 +138,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="ShapeModel.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="WhiteBoardHub.cs" />
   </ItemGroup>

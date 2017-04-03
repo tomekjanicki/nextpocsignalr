@@ -16,13 +16,6 @@ namespace WebRealTime
             Clients.Group(pageId).BroadcastMessage(item);
         }
 
-        public void UpdateModel(ShapeModel clientModel, int page)
-        {
-            CheckSecurity();
-            var pageId = page.ToString();
-            Clients.Group(pageId, Context.ConnectionId).UpdateShape(clientModel);
-        }
-
         public async Task JoinPage(int page)
         {
             CheckSecurity();
