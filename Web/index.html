@@ -3,6 +3,13 @@
 <head>
     <title>POC application</title>
     <meta charset="utf-8" />
+    <style>
+        #shape {
+            width: 100px;
+            height: 100px;
+            background-color: #FF0000;
+        }
+    </style>
 </head>
 <body>
     <div id="login">
@@ -23,12 +30,26 @@
         <input type="button" id="endEditButton" value="end edit" />
         <ul id="itemList"></ul>
     </div>
+    <div id="shape" style="display: none"></div>
     <script src="Scripts/jquery-3.1.1.min.js"></script>
+    <script src="Scripts/jquery-ui-1.12.1.min.js"></script>
     <script src="Scripts/jquery.signalR-2.2.1.min.js"></script>
     <script src="webrealtime/signalr/hubs"></script>
     <script type="text/javascript" language="javascript">
         $(function () {
             var whiteBoardHub = $.connection.whiteBoardHub;
+            var messageFrequency = 10;
+            var updateRate = 1000 / messageFrequency;
+            var moved = false;
+            var $shape = $("#shape");
+            var shapeModel = {
+                left: 0,
+                top: 0
+            };
+            whiteBoardHub.client.updateShape = function (model) {
+                shapeModel = model;
+                $shape.css({ left: model.left, top: model.top });
+            };
             whiteBoardHub.client.broadcastMessage = function (item) {
                 var encodedItem = $('<div/>').text(item).html();
                 $('#itemList').append('<li>' + encodedItem + '</li>');
@@ -53,6 +74,10 @@
                     });
             });
             $("#logoutButton").click(function () {
+                var page = $("#pageId").val();
+                if (page !== "") {
+                    whiteBoardHub.server.leavePage(page);
+                }
                 $.ajax({
                     method: "POST",
                     url: "/wcfproxy/ServiceProxy.svc/logout"
@@ -61,17 +86,21 @@
                         $("#logout").hide();
                         $("#items").hide();
                         $("#pages").hide();
+                        $("#shape").hide();
                         $("#login").show();
-                        var page = $("#pageId").val();
-                        if (page !== "") {
-                            whiteBoardHub.server.leavePage(page);
-                        }
                     })
                     .fail(function () {
                         alert("unable to logout");
                     });
             });
             $.connection.hub.start().done(function () {
+                $shape.draggable({
+                    drag: function () {
+                        shapeModel = $shape.offset();
+                        moved = true;
+                    }
+                });
+                setInterval(updateServerModel, updateRate);
                 $("#addItemButton").click(function () {
                     var item = "1";
                     var page = $("#pageId").val();
@@ -104,6 +133,13 @@
                         alert("unable to end edit");
                     });
             });
+            function updateServerModel() {
+                if (moved) {
+                    var page = $("#pageId").val();
+                    whiteBoardHub.server.updateModel(shapeModel, page);
+                    moved = false;
+                }
+            }
         });
 
         function showItems(page, whiteBoardHub) {
@@ -116,6 +152,7 @@
                 .done(function (data) {
                     $("#pages").hide();
                     $("#items").show();
+                    $("#shape").show();
                     $("#desc").text("Page " + page);
                     $("#pageId").val(page);
                     $('#itemList').empty();
