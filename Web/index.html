@@ -16,18 +16,22 @@
     <div id="pages" style="display: none">
         <div id="pagesList"></div>
     </div>
-<div id="items" style="display: none">
-    <p id="desc"></p>
-    <input type="hidden" id="pageId"/>
-    <input type="button" id="addItemButton" value="add item"/>
-    <input type="button" id="endEditButton" value="end edit"/>
-    <ul id="itemList"></ul>
-</div>
+    <div id="items" style="display: none">
+        <p id="desc"></p>
+        <input type="hidden" id="pageId" />
+        <input type="button" id="addItemButton" value="add item" />
+        <input type="button" id="endEditButton" value="end edit" />
+        <ul id="itemList"></ul>
+    </div>
     <script src="Scripts/jquery-3.1.1.min.js"></script>
     <script src="Scripts/jquery.signalR-2.2.1.min.js"></script>
     <script src="webrealtime/signalr/hubs"></script>
     <script type="text/javascript" language="javascript">
         $(function () {
+            var whiteBoardHub = $.connection.whiteBoardHub;
+            whiteBoardHub.client.broadcastMessage = function (item) {
+                $('#itemList').append('<li>' + item + '</li>');
+            };
             $("#loginButton").click(function () {
                 var userName = $("#userName").val();
                 var password = $("#password").val();
@@ -41,7 +45,7 @@
                         $("#login").hide();
                         $("#logout").show();
                         $("#pages").show();
-                        showPages();
+                        showPages(whiteBoardHub);
                     })
                     .fail(function () {
                         alert("unable to login");
@@ -57,20 +61,15 @@
                         $("#items").hide();
                         $("#pages").hide();
                         $("#login").show();
+                        var page = $("#pageId").val();
+                        if (page !== "") {
+                            whiteBoardHub.server.leavePage(page);
+                        }
                     })
                     .fail(function () {
                         alert("unable to logout");
                     });
             });
-
-
-            var whiteBoardHub = $.connection.whiteBoardHub;
-            whiteBoardHub.client.broadcastMessage = function (item, page) {
-                var currentPage = $("#pageId").val();
-                if (currentPage === page.toString()) {
-                    $('#itemList').append('<li>' + item + '</li>');
-                }                
-            };
             $.connection.hub.start().done(function () {
                 $("#addItemButton").click(function () {
                     var item = "1";
@@ -78,18 +77,11 @@
                     $.ajax({
                         method: "POST",
                         url: "/wcfproxy/ServiceProxy.svc/whiteboardadd",
-                        data: '{ "item": "' + item + '", "page": "' + page +'" }',
+                        data: '{ "item": "' + item + '", "page": "' + page + '" }',
                         contentType: "application/json; charset=UTF-8"
                     })
                         .done(function () {
-                            $.ajax({
-                                method: "POST",
-                                url: "/webrealtime/WhiteBoardService.svc/sendnewaddeditem",
-                                data: '{ "item": "' + item + '", "page": "' + page + '" }',
-                                contentType: "application/json; charset=UTF-8"
-                            }).fail(function () {
-                                alert("unable to send notification");
-                            });
+                            whiteBoardHub.server.sendNewAddedItem(item, page);
                         })
                         .fail(function () {
                             alert("unable to add item");
@@ -113,7 +105,7 @@
             });
         });
 
-        function showItems(page) {
+        function showItems(page, whiteBoardHub) {
             $.ajax({
                 method: "GET",
                 url: "/wcfproxy/ServiceProxy.svc/WhiteBoardGetItems?page=" + page,
@@ -131,13 +123,14 @@
                         items.push('<li>' + item + '</li>');
                     });
                     $('#itemList').append(items.join(''));
+                    whiteBoardHub.server.joinPage(page);
                 })
                 .fail(function () {
                     alert("unable to fetch data");
                 });
         }
 
-        function showPages() {
+        function showPages(whiteBoardHub) {
             $.ajax({
                 method: "GET",
                 url: "/wcfproxy/ServiceProxy.svc/WhiteBoardGetPages",
@@ -153,7 +146,7 @@
                     $('#pagesList').append(items.join(''));
                     $(".page").on("click", function () {
                         var page = $(this).attr('data-page');
-                        showItems(page);
+                        showItems(page, whiteBoardHub);
                     });
                 })
                 .fail(function () {
