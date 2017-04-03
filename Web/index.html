@@ -30,7 +30,8 @@
         $(function () {
             var whiteBoardHub = $.connection.whiteBoardHub;
             whiteBoardHub.client.broadcastMessage = function (item) {
-                $('#itemList').append('<li>' + item + '</li>');
+                var encodedItem = $('<div/>').text(item).html();
+                $('#itemList').append('<li>' + encodedItem + '</li>');
             };
             $("#loginButton").click(function () {
                 var userName = $("#userName").val();

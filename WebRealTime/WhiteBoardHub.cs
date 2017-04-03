@@ -7,13 +7,13 @@ using WebRealTime.Service;
 
 namespace WebRealTime
 {
-    public sealed class WhiteBoardHub : Hub
+    public sealed class WhiteBoardHub : Hub<IClient>
     {
         public void SendNewAddedItem(int item, int page)
         {
             CheckSecurity();
             var pageId = page.ToString();
-            Clients.Group(pageId).broadcastMessage(item);
+            Clients.Group(pageId).BroadcastMessage(item);
         }
 
         public async Task JoinPage(int page)
