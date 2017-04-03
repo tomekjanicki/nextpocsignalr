@@ -93,7 +93,7 @@
                 $.ajax({
                     method: "POST",
                     url: "/wcfproxy/ServiceProxy.svc/whiteboardendedit",
-                    data: '{ "pagex": "' + page + '" }',
+                    data: '{ "pageNumber": "' + page + '" }',
                     contentType: "application/json; charset=UTF-8"
                 })
                     .done(function () {
