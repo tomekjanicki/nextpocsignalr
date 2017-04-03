@@ -45,6 +45,5 @@ namespace WebRealTime
                 CookiesIn = cookies.ToDictionary(pair => pair.Value.Name, pair => pair.Value.Value.ToString())
             };
         }
-
     }
 }
