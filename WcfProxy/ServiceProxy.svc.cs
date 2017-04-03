@@ -8,11 +8,30 @@ namespace WcfProxy
     {
         private readonly WebOperationContextWrapper _webOperationContextWrapper = new WebOperationContextWrapper();
 
-        public void WhiteBoardAdd(int item, int page)
+        public void WhiteBoardUpdateShape(Shape shape, int page)
         {
             using (var client = new ServiceClient())
             {
-                var data = client.WhiteBoardAdd(item, page, GetContextData());
+                var data = client.WhiteBoardUpdateShape(page, shape, GetContextData());
+                _webOperationContextWrapper.UpdateContext(data);
+            }
+        }
+
+        public Shape WhiteBoardGetShape(int page)
+        {
+            using (var client = new ServiceClient())
+            {
+                var data = client.WhiteBoardGetShape(page, GetContextData());
+                _webOperationContextWrapper.UpdateContext(data.Data);
+                return data.Shape;
+            }
+        }
+
+        public void WhiteBoardAddItem(int item, int page)
+        {
+            using (var client = new ServiceClient())
+            {
+                var data = client.WhiteBoardAddItem(item, page, GetContextData());
                 _webOperationContextWrapper.UpdateContext(data);
             }
         }

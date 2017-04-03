@@ -6,9 +6,14 @@ namespace Wcf
     [ServiceContract]
     public interface IService
     {
+        [OperationContract]
+        GetShape WhiteBoardGetShape(int page, WebContextData data);
 
         [OperationContract]
-        WebContextData WhiteBoardAdd(int item, int page, WebContextData data);
+        WebContextData WhiteBoardUpdateShape(int page, Shape shape, WebContextData data);
+
+        [OperationContract]
+        WebContextData WhiteBoardAddItem(int item, int page, WebContextData data);
 
         [OperationContract]
         GetItems WhiteBoardGetItems(int page, WebContextData data);

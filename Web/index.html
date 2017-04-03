@@ -52,6 +52,10 @@
                     });
             });
             $("#logoutButton").click(function () {
+                var page = $("#pageId").val();
+                if (page !== "") {
+                    whiteBoardHub.server.leavePage(page);
+                }
                 $.ajax({
                     method: "POST",
                     url: "/wcfproxy/ServiceProxy.svc/logout"
@@ -61,10 +65,6 @@
                         $("#items").hide();
                         $("#pages").hide();
                         $("#login").show();
-                        var page = $("#pageId").val();
-                        if (page !== "") {
-                            whiteBoardHub.server.leavePage(page);
-                        }
                     })
                     .fail(function () {
                         alert("unable to logout");
@@ -76,7 +76,7 @@
                     var page = $("#pageId").val();
                     $.ajax({
                         method: "POST",
-                        url: "/wcfproxy/ServiceProxy.svc/whiteboardadd",
+                        url: "/wcfproxy/ServiceProxy.svc/whiteboardadditem",
                         data: '{ "item": "' + item + '", "page": "' + page + '" }',
                         contentType: "application/json; charset=UTF-8"
                     })

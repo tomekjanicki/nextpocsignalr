@@ -8,11 +8,23 @@
       <xsd:import schemaLocation="http://localhost:8091/wcf/Service.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IService_WhiteBoardAdd_InputMessage">
-    <wsdl:part name="parameters" element="tns:WhiteBoardAdd" />
+  <wsdl:message name="IService_WhiteBoardGetShape_InputMessage">
+    <wsdl:part name="parameters" element="tns:WhiteBoardGetShape" />
   </wsdl:message>
-  <wsdl:message name="IService_WhiteBoardAdd_OutputMessage">
-    <wsdl:part name="parameters" element="tns:WhiteBoardAddResponse" />
+  <wsdl:message name="IService_WhiteBoardGetShape_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WhiteBoardGetShapeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_WhiteBoardUpdateShape_InputMessage">
+    <wsdl:part name="parameters" element="tns:WhiteBoardUpdateShape" />
+  </wsdl:message>
+  <wsdl:message name="IService_WhiteBoardUpdateShape_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WhiteBoardUpdateShapeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_WhiteBoardAddItem_InputMessage">
+    <wsdl:part name="parameters" element="tns:WhiteBoardAddItem" />
+  </wsdl:message>
+  <wsdl:message name="IService_WhiteBoardAddItem_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WhiteBoardAddItemResponse" />
   </wsdl:message>
   <wsdl:message name="IService_WhiteBoardGetItems_InputMessage">
     <wsdl:part name="parameters" element="tns:WhiteBoardGetItems" />
@@ -45,9 +57,17 @@
     <wsdl:part name="parameters" element="tns:ShouldSendNotificationResponse" />
   </wsdl:message>
   <wsdl:portType name="IService">
-    <wsdl:operation name="WhiteBoardAdd">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService/WhiteBoardAdd" message="tns:IService_WhiteBoardAdd_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService/WhiteBoardAddResponse" message="tns:IService_WhiteBoardAdd_OutputMessage" />
+    <wsdl:operation name="WhiteBoardGetShape">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/WhiteBoardGetShape" message="tns:IService_WhiteBoardGetShape_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/WhiteBoardGetShapeResponse" message="tns:IService_WhiteBoardGetShape_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WhiteBoardUpdateShape">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/WhiteBoardUpdateShape" message="tns:IService_WhiteBoardUpdateShape_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/WhiteBoardUpdateShapeResponse" message="tns:IService_WhiteBoardUpdateShape_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WhiteBoardAddItem">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/WhiteBoardAddItem" message="tns:IService_WhiteBoardAddItem_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/WhiteBoardAddItemResponse" message="tns:IService_WhiteBoardAddItem_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="WhiteBoardGetItems">
       <wsdl:input wsaw:Action="http://tempuri.org/IService/WhiteBoardGetItems" message="tns:IService_WhiteBoardGetItems_InputMessage" />
@@ -72,8 +92,26 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService" type="tns:IService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="WhiteBoardAdd">
-      <soap:operation soapAction="http://tempuri.org/IService/WhiteBoardAdd" style="document" />
+    <wsdl:operation name="WhiteBoardGetShape">
+      <soap:operation soapAction="http://tempuri.org/IService/WhiteBoardGetShape" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WhiteBoardUpdateShape">
+      <soap:operation soapAction="http://tempuri.org/IService/WhiteBoardUpdateShape" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WhiteBoardAddItem">
+      <soap:operation soapAction="http://tempuri.org/IService/WhiteBoardAddItem" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
