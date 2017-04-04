@@ -16,6 +16,13 @@ namespace WebRealTime
             Clients.Group(pageId).NewItemAdded(item);
         }
 
+        public void SendShapeUpdated(int page)
+        {
+            CheckSecurity();
+            var pageId = page.ToString();
+            Clients.Group(pageId, Context.ConnectionId).ShapeUpdated();
+        }
+
         public async Task JoinPage(int page)
         {
             CheckSecurity();
