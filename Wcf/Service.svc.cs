@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Shared;
 using Wcf.Code;
 
@@ -56,6 +57,7 @@ namespace Wcf
 
         public WebContextData Logout(WebContextData data)
         {
+            Debug.WriteLine("Logout called");
             var sessionId = GetSessionId(data);
             _authentication.CheckSession(sessionId);
             _authentication.Logout(sessionId);
@@ -64,6 +66,7 @@ namespace Wcf
 
         public WebContextData ShouldSendNotification(WebContextData data)
         {
+            Debug.WriteLine("ShouldSendNotification called");
             var sessionId = GetSessionId(data);
             _authentication.CheckSession(sessionId);
             return data;

@@ -32,6 +32,7 @@ namespace WebRealTime
 
         public Task LeavePage(int page)
         {
+            //to może być wolane póżniej niż logout, powinno być w jednym callu
             CheckSecurity();
             var pageId = page.ToString();
             return Groups.Remove(Context.ConnectionId, pageId);
