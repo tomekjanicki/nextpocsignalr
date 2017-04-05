@@ -20,6 +20,7 @@ namespace Wcf.Code
         {
             lock (_pagesWithSquares)
             {
+                WhiteboardV2.Reset();
                 _pagesWithSquares = new Dictionary<int, Tuple<bool, Dictionary<Guid, Square>>>();
             }
         }
