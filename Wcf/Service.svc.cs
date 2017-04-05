@@ -8,28 +8,13 @@ namespace Wcf
     public sealed class Service : IService
     {
         private readonly Authentication _authentication = new Authentication();
-        private readonly Whiteboard _whiteboard = new Whiteboard();
-
-        public GetShape WhiteBoardGetShape(int page, WebContextData data)
-        {
-            var sessionId = GetSessionId(data);
-            _authentication.CheckSession(sessionId);
-            return new GetShape { Data = data, Shape = _whiteboard.GetShape(page) };
-        }
-
-        public WebContextData WhiteBoardUpdateShape(int page, Shape shape, WebContextData data)
-        {
-            var sessionId = GetSessionId(data);
-            _authentication.CheckSession(sessionId);
-            _whiteboard.UpdateShape(shape, page);
-            return data;
-        }
+        private readonly WhiteboardV1 _whiteboardV1 = new WhiteboardV1();
 
         public WebContextData WhiteBoardAddItem(int item, int page, WebContextData data)
         {
             var sessionId = GetSessionId(data);
             _authentication.CheckSession(sessionId);
-            _whiteboard.AddItem(item, page);
+            _whiteboardV1.AddItem(item, page);
             return data;
         }
 
@@ -37,14 +22,14 @@ namespace Wcf
         {
             var sessionId = GetSessionId(data);
             _authentication.CheckSession(sessionId);
-            return new GetPages { Data = data, Items = _whiteboard.GetPages() };
+            return new GetPages { Data = data, Items = _whiteboardV1.GetPages() };
         }
 
         public GetItems WhiteBoardGetItems(int page, WebContextData data)
         {
             var sessionId = GetSessionId(data);
             _authentication.CheckSession(sessionId);
-            return new GetItems { Data = data, Items = _whiteboard.GetItems(page) };
+            return new GetItems { Data = data, Items = _whiteboardV1.GetItems(page) };
         }
 
         public WebContextData Login(string userName, string password, WebContextData data)

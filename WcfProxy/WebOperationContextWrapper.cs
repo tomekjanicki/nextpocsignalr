@@ -16,7 +16,10 @@ namespace WcfProxy
                 var cookieHeader = WebOperationContext.Current.IncomingRequest.Headers[HttpRequestHeader.Cookie];
 
                 if (string.IsNullOrEmpty(cookieHeader))
+                {
                     return retDictionary;
+                }
+                    
 
                 var cookies = cookieHeader.Split(';');
                 for (var i = 0; i < cookies.Length; i++)
@@ -30,7 +33,9 @@ namespace WcfProxy
                     if (parts.Length == 2)
                     {
                         if (!retDictionary.ContainsKey(parts[0]))
+                        {
                             retDictionary.Add(parts[0], parts[1]);
+                        }                            
                     }
                 }
             }

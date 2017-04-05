@@ -7,20 +7,13 @@ using WebRealTime.Service;
 
 namespace WebRealTime
 {
-    public sealed class WhiteBoardHub : Hub<IClient>
+    public sealed class WhiteBoardHubV1 : Hub<IClientV1>
     {
         public void SendNewItemAdded(int item, int page)
         {
             CheckSecurity();
             var pageId = page.ToString();
             Clients.Group(pageId).NewItemAdded(item);
-        }
-
-        public void SendShapeUpdated(int page)
-        {
-            CheckSecurity();
-            var pageId = page.ToString();
-            Clients.Group(pageId, Context.ConnectionId).ShapeUpdated();
         }
 
         public async Task JoinPage(int page)

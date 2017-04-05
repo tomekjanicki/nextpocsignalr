@@ -1,9 +1,7 @@
 namespace WebRealTime
 {
-    public interface IClient
+    public interface IClientV1
     {
         void NewItemAdded(int item);
-
-        void ShapeUpdated();
     }
 }

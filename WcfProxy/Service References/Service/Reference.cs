@@ -15,18 +15,6 @@ namespace WcfProxy.Service {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Service.IService")]
     public interface IService {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardGetShape", ReplyAction="http://tempuri.org/IService/WhiteBoardGetShapeResponse")]
-        Shared.GetShape WhiteBoardGetShape(int page, Shared.WebContextData data);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardGetShape", ReplyAction="http://tempuri.org/IService/WhiteBoardGetShapeResponse")]
-        System.Threading.Tasks.Task<Shared.GetShape> WhiteBoardGetShapeAsync(int page, Shared.WebContextData data);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardUpdateShape", ReplyAction="http://tempuri.org/IService/WhiteBoardUpdateShapeResponse")]
-        Shared.WebContextData WhiteBoardUpdateShape(int page, Shared.Shape shape, Shared.WebContextData data);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardUpdateShape", ReplyAction="http://tempuri.org/IService/WhiteBoardUpdateShapeResponse")]
-        System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardUpdateShapeAsync(int page, Shared.Shape shape, Shared.WebContextData data);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardAddItem", ReplyAction="http://tempuri.org/IService/WhiteBoardAddItemResponse")]
         Shared.WebContextData WhiteBoardAddItem(int item, int page, Shared.WebContextData data);
         
@@ -89,22 +77,6 @@ namespace WcfProxy.Service {
         
         public ServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
-        }
-        
-        public Shared.GetShape WhiteBoardGetShape(int page, Shared.WebContextData data) {
-            return base.Channel.WhiteBoardGetShape(page, data);
-        }
-        
-        public System.Threading.Tasks.Task<Shared.GetShape> WhiteBoardGetShapeAsync(int page, Shared.WebContextData data) {
-            return base.Channel.WhiteBoardGetShapeAsync(page, data);
-        }
-        
-        public Shared.WebContextData WhiteBoardUpdateShape(int page, Shared.Shape shape, Shared.WebContextData data) {
-            return base.Channel.WhiteBoardUpdateShape(page, shape, data);
-        }
-        
-        public System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardUpdateShapeAsync(int page, Shared.Shape shape, Shared.WebContextData data) {
-            return base.Channel.WhiteBoardUpdateShapeAsync(page, shape, data);
         }
         
         public Shared.WebContextData WhiteBoardAddItem(int item, int page, Shared.WebContextData data) {

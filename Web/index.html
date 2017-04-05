@@ -27,7 +27,7 @@
     <script src="webrealtime/signalr/hubs"></script>
     <script type="text/javascript" language="javascript">
         $(function () {
-            var whiteBoardHub = $.connection.whiteBoardHub;
+            var whiteBoardHub = $.connection.whiteBoardHubV1;
             whiteBoardHub.client.newItemAdded = function (item) {
                 var encodedItem = $('<div/>').text(item).html();
                 $('#itemList').append('<li>' + encodedItem + '</li>');
