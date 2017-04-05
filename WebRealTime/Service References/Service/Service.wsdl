@@ -8,23 +8,23 @@
       <xsd:import schemaLocation="http://localhost:8091/wcf/Service.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IService_WhiteBoardAddItem_InputMessage">
-    <wsdl:part name="parameters" element="tns:WhiteBoardAddItem" />
+  <wsdl:message name="IService_WhiteBoardV1AddItem_InputMessage">
+    <wsdl:part name="parameters" element="tns:WhiteBoardV1AddItem" />
   </wsdl:message>
-  <wsdl:message name="IService_WhiteBoardAddItem_OutputMessage">
-    <wsdl:part name="parameters" element="tns:WhiteBoardAddItemResponse" />
+  <wsdl:message name="IService_WhiteBoardV1AddItem_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WhiteBoardV1AddItemResponse" />
   </wsdl:message>
-  <wsdl:message name="IService_WhiteBoardGetItems_InputMessage">
-    <wsdl:part name="parameters" element="tns:WhiteBoardGetItems" />
+  <wsdl:message name="IService_WhiteBoardV1GetItems_InputMessage">
+    <wsdl:part name="parameters" element="tns:WhiteBoardV1GetItems" />
   </wsdl:message>
-  <wsdl:message name="IService_WhiteBoardGetItems_OutputMessage">
-    <wsdl:part name="parameters" element="tns:WhiteBoardGetItemsResponse" />
+  <wsdl:message name="IService_WhiteBoardV1GetItems_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WhiteBoardV1GetItemsResponse" />
   </wsdl:message>
-  <wsdl:message name="IService_WhiteBoardGetPages_InputMessage">
-    <wsdl:part name="parameters" element="tns:WhiteBoardGetPages" />
+  <wsdl:message name="IService_WhiteBoardV1GetPages_InputMessage">
+    <wsdl:part name="parameters" element="tns:WhiteBoardV1GetPages" />
   </wsdl:message>
-  <wsdl:message name="IService_WhiteBoardGetPages_OutputMessage">
-    <wsdl:part name="parameters" element="tns:WhiteBoardGetPagesResponse" />
+  <wsdl:message name="IService_WhiteBoardV1GetPages_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WhiteBoardV1GetPagesResponse" />
   </wsdl:message>
   <wsdl:message name="IService_Login_InputMessage">
     <wsdl:part name="parameters" element="tns:Login" />
@@ -45,17 +45,17 @@
     <wsdl:part name="parameters" element="tns:ShouldSendNotificationResponse" />
   </wsdl:message>
   <wsdl:portType name="IService">
-    <wsdl:operation name="WhiteBoardAddItem">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService/WhiteBoardAddItem" message="tns:IService_WhiteBoardAddItem_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService/WhiteBoardAddItemResponse" message="tns:IService_WhiteBoardAddItem_OutputMessage" />
+    <wsdl:operation name="WhiteBoardV1AddItem">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/WhiteBoardV1AddItem" message="tns:IService_WhiteBoardV1AddItem_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/WhiteBoardV1AddItemResponse" message="tns:IService_WhiteBoardV1AddItem_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="WhiteBoardGetItems">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService/WhiteBoardGetItems" message="tns:IService_WhiteBoardGetItems_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService/WhiteBoardGetItemsResponse" message="tns:IService_WhiteBoardGetItems_OutputMessage" />
+    <wsdl:operation name="WhiteBoardV1GetItems">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/WhiteBoardV1GetItems" message="tns:IService_WhiteBoardV1GetItems_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/WhiteBoardV1GetItemsResponse" message="tns:IService_WhiteBoardV1GetItems_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="WhiteBoardGetPages">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService/WhiteBoardGetPages" message="tns:IService_WhiteBoardGetPages_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService/WhiteBoardGetPagesResponse" message="tns:IService_WhiteBoardGetPages_OutputMessage" />
+    <wsdl:operation name="WhiteBoardV1GetPages">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/WhiteBoardV1GetPages" message="tns:IService_WhiteBoardV1GetPages_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/WhiteBoardV1GetPagesResponse" message="tns:IService_WhiteBoardV1GetPages_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="Login">
       <wsdl:input wsaw:Action="http://tempuri.org/IService/Login" message="tns:IService_Login_InputMessage" />
@@ -72,8 +72,8 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService" type="tns:IService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="WhiteBoardAddItem">
-      <soap:operation soapAction="http://tempuri.org/IService/WhiteBoardAddItem" style="document" />
+    <wsdl:operation name="WhiteBoardV1AddItem">
+      <soap:operation soapAction="http://tempuri.org/IService/WhiteBoardV1AddItem" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -81,8 +81,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="WhiteBoardGetItems">
-      <soap:operation soapAction="http://tempuri.org/IService/WhiteBoardGetItems" style="document" />
+    <wsdl:operation name="WhiteBoardV1GetItems">
+      <soap:operation soapAction="http://tempuri.org/IService/WhiteBoardV1GetItems" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -90,8 +90,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="WhiteBoardGetPages">
-      <soap:operation soapAction="http://tempuri.org/IService/WhiteBoardGetPages" style="document" />
+    <wsdl:operation name="WhiteBoardV1GetPages">
+      <soap:operation soapAction="http://tempuri.org/IService/WhiteBoardV1GetPages" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

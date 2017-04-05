@@ -65,6 +65,8 @@
     <Content Include="Properties\DataSources\Shared.WebContextData.datasource" />
     <Content Include="Properties\DataSources\Shared.GetPages.datasource" />
     <Content Include="Properties\DataSources\Shared.GetShape.datasource" />
+    <Content Include="Properties\DataSources\Shared.GetItemsV1.datasource" />
+    <Content Include="Properties\DataSources\Shared.GetPagesV1.datasource" />
     <None Include="Service References\Service\Service.disco" />
     <None Include="Service References\Service\configuration91.svcinfo" />
     <None Include="Service References\Service\configuration.svcinfo" />

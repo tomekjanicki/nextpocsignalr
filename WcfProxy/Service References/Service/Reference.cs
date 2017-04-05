@@ -15,23 +15,23 @@ namespace WcfProxy.Service {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Service.IService")]
     public interface IService {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardAddItem", ReplyAction="http://tempuri.org/IService/WhiteBoardAddItemResponse")]
-        Shared.WebContextData WhiteBoardAddItem(int item, int page, Shared.WebContextData data);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV1AddItem", ReplyAction="http://tempuri.org/IService/WhiteBoardV1AddItemResponse")]
+        Shared.WebContextData WhiteBoardV1AddItem(int item, int page, Shared.WebContextData data);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardAddItem", ReplyAction="http://tempuri.org/IService/WhiteBoardAddItemResponse")]
-        System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardAddItemAsync(int item, int page, Shared.WebContextData data);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV1AddItem", ReplyAction="http://tempuri.org/IService/WhiteBoardV1AddItemResponse")]
+        System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardV1AddItemAsync(int item, int page, Shared.WebContextData data);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardGetItems", ReplyAction="http://tempuri.org/IService/WhiteBoardGetItemsResponse")]
-        Shared.GetItems WhiteBoardGetItems(int page, Shared.WebContextData data);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV1GetItems", ReplyAction="http://tempuri.org/IService/WhiteBoardV1GetItemsResponse")]
+        Shared.GetItemsV1 WhiteBoardV1GetItems(int page, Shared.WebContextData data);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardGetItems", ReplyAction="http://tempuri.org/IService/WhiteBoardGetItemsResponse")]
-        System.Threading.Tasks.Task<Shared.GetItems> WhiteBoardGetItemsAsync(int page, Shared.WebContextData data);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV1GetItems", ReplyAction="http://tempuri.org/IService/WhiteBoardV1GetItemsResponse")]
+        System.Threading.Tasks.Task<Shared.GetItemsV1> WhiteBoardV1GetItemsAsync(int page, Shared.WebContextData data);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardGetPages", ReplyAction="http://tempuri.org/IService/WhiteBoardGetPagesResponse")]
-        Shared.GetPages WhiteBoardGetPages(Shared.WebContextData data);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV1GetPages", ReplyAction="http://tempuri.org/IService/WhiteBoardV1GetPagesResponse")]
+        Shared.GetPagesV1 WhiteBoardV1GetPages(Shared.WebContextData data);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardGetPages", ReplyAction="http://tempuri.org/IService/WhiteBoardGetPagesResponse")]
-        System.Threading.Tasks.Task<Shared.GetPages> WhiteBoardGetPagesAsync(Shared.WebContextData data);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV1GetPages", ReplyAction="http://tempuri.org/IService/WhiteBoardV1GetPagesResponse")]
+        System.Threading.Tasks.Task<Shared.GetPagesV1> WhiteBoardV1GetPagesAsync(Shared.WebContextData data);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/Login", ReplyAction="http://tempuri.org/IService/LoginResponse")]
         Shared.WebContextData Login(string userName, string password, Shared.WebContextData data);
@@ -79,28 +79,28 @@ namespace WcfProxy.Service {
                 base(binding, remoteAddress) {
         }
         
-        public Shared.WebContextData WhiteBoardAddItem(int item, int page, Shared.WebContextData data) {
-            return base.Channel.WhiteBoardAddItem(item, page, data);
+        public Shared.WebContextData WhiteBoardV1AddItem(int item, int page, Shared.WebContextData data) {
+            return base.Channel.WhiteBoardV1AddItem(item, page, data);
         }
         
-        public System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardAddItemAsync(int item, int page, Shared.WebContextData data) {
-            return base.Channel.WhiteBoardAddItemAsync(item, page, data);
+        public System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardV1AddItemAsync(int item, int page, Shared.WebContextData data) {
+            return base.Channel.WhiteBoardV1AddItemAsync(item, page, data);
         }
         
-        public Shared.GetItems WhiteBoardGetItems(int page, Shared.WebContextData data) {
-            return base.Channel.WhiteBoardGetItems(page, data);
+        public Shared.GetItemsV1 WhiteBoardV1GetItems(int page, Shared.WebContextData data) {
+            return base.Channel.WhiteBoardV1GetItems(page, data);
         }
         
-        public System.Threading.Tasks.Task<Shared.GetItems> WhiteBoardGetItemsAsync(int page, Shared.WebContextData data) {
-            return base.Channel.WhiteBoardGetItemsAsync(page, data);
+        public System.Threading.Tasks.Task<Shared.GetItemsV1> WhiteBoardV1GetItemsAsync(int page, Shared.WebContextData data) {
+            return base.Channel.WhiteBoardV1GetItemsAsync(page, data);
         }
         
-        public Shared.GetPages WhiteBoardGetPages(Shared.WebContextData data) {
-            return base.Channel.WhiteBoardGetPages(data);
+        public Shared.GetPagesV1 WhiteBoardV1GetPages(Shared.WebContextData data) {
+            return base.Channel.WhiteBoardV1GetPages(data);
         }
         
-        public System.Threading.Tasks.Task<Shared.GetPages> WhiteBoardGetPagesAsync(Shared.WebContextData data) {
-            return base.Channel.WhiteBoardGetPagesAsync(data);
+        public System.Threading.Tasks.Task<Shared.GetPagesV1> WhiteBoardV1GetPagesAsync(Shared.WebContextData data) {
+            return base.Channel.WhiteBoardV1GetPagesAsync(data);
         }
         
         public Shared.WebContextData Login(string userName, string password, Shared.WebContextData data) {

@@ -8,7 +8,7 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="WebContextData" nillable="true" type="tns:WebContextData" />
-  <xs:complexType name="GetItems">
+  <xs:complexType name="GetItemsV1">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Base">
         <xs:sequence>
@@ -17,14 +17,14 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="GetItems" nillable="true" type="tns:GetItems" />
+  <xs:element name="GetItemsV1" nillable="true" type="tns:GetItemsV1" />
   <xs:complexType name="Base">
     <xs:sequence>
       <xs:element minOccurs="0" name="Data" nillable="true" type="tns:WebContextData" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Base" nillable="true" type="tns:Base" />
-  <xs:complexType name="GetPages">
+  <xs:complexType name="GetPagesV1">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Base">
         <xs:sequence>
@@ -33,5 +33,5 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="GetPages" nillable="true" type="tns:GetPages" />
+  <xs:element name="GetPagesV1" nillable="true" type="tns:GetPagesV1" />
 </xs:schema>

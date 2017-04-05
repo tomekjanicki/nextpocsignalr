@@ -7,13 +7,13 @@ namespace Wcf
     public interface IService
     {
         [OperationContract]
-        WebContextData WhiteBoardAddItem(int item, int page, WebContextData data);
+        WebContextData WhiteBoardV1AddItem(int item, int page, WebContextData data);
 
         [OperationContract]
-        GetItems WhiteBoardGetItems(int page, WebContextData data);
+        GetItemsV1 WhiteBoardV1GetItems(int page, WebContextData data);
 
         [OperationContract]
-        GetPages WhiteBoardGetPages(WebContextData data);
+        GetPagesV1 WhiteBoardV1GetPages(WebContextData data);
 
         [OperationContract]
         WebContextData Login(string userName, string password, WebContextData data);

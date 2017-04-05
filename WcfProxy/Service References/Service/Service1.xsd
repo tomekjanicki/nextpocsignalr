@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:8091/wcf/Service.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Shared" />
-  <xs:element name="WhiteBoardAddItem">
+  <xs:element name="WhiteBoardV1AddItem">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="item" type="xs:int" />
@@ -10,14 +10,14 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="WhiteBoardAddItemResponse">
+  <xs:element name="WhiteBoardV1AddItemResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="WhiteBoardAddItemResult" nillable="true" type="q2:WebContextData" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="WhiteBoardV1AddItemResult" nillable="true" type="q2:WebContextData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="WhiteBoardGetItems">
+  <xs:element name="WhiteBoardV1GetItems">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="page" type="xs:int" />
@@ -25,24 +25,24 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="WhiteBoardGetItemsResponse">
+  <xs:element name="WhiteBoardV1GetItemsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="WhiteBoardGetItemsResult" nillable="true" type="q4:GetItems" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="WhiteBoardV1GetItemsResult" nillable="true" type="q4:GetItemsV1" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="WhiteBoardGetPages">
+  <xs:element name="WhiteBoardV1GetPages">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="data" nillable="true" type="q5:WebContextData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="WhiteBoardGetPagesResponse">
+  <xs:element name="WhiteBoardV1GetPagesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="WhiteBoardGetPagesResult" nillable="true" type="q6:GetPages" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="WhiteBoardV1GetPagesResult" nillable="true" type="q6:GetPagesV1" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -76,7 +76,7 @@
                     var page = $("#pageId").val();
                     $.ajax({
                         method: "POST",
-                        url: "/wcfproxy/ServiceProxy.svc/whiteboardadditem",
+                        url: "/wcfproxy/ServiceProxy.svc/whiteboardv1additem",
                         data: '{ "item": "' + item + '", "page": "' + page + '" }',
                         contentType: "application/json; charset=UTF-8"
                     })
@@ -93,7 +93,7 @@
         function showItems(page, whiteBoardHub) {
             $.ajax({
                 method: "GET",
-                url: "/wcfproxy/ServiceProxy.svc/WhiteBoardGetItems?page=" + page,
+                url: "/wcfproxy/ServiceProxy.svc/WhiteBoardv1GetItems?page=" + page,
                 cache: false,
                 contentType: "application/json; charset=UTF-8"
             })
@@ -118,7 +118,7 @@
         function showPages(whiteBoardHub) {
             $.ajax({
                 method: "GET",
-                url: "/wcfproxy/ServiceProxy.svc/WhiteBoardGetPages",
+                url: "/wcfproxy/ServiceProxy.svc/WhiteBoardv1GetPages",
                 cache: false,
                 contentType: "application/json; charset=UTF-8"
             })
