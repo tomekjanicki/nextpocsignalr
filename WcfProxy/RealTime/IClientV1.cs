@@ -1,4 +1,4 @@
-namespace WebRealTime
+namespace WcfProxy.RealTime
 {
     public interface IClientV1
     {

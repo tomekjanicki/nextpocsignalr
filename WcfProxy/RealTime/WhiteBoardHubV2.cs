@@ -1,19 +1,34 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 using Shared;
-using WebRealTime.Service;
+using WcfProxy.Service;
 
-namespace WebRealTime
+namespace WcfProxy.RealTime
 {
-    public sealed class WhiteBoardHubV1 : Hub<IClientV1>
+    public sealed class WhiteBoardHubV2 : Hub<IClinetV2>
     {
-        public void SendNewItemAdded(int item, int page)
+        public void SquareDelete(Guid id, int page)
         {
             CheckSecurity();
             var pageId = page.ToString();
-            Clients.Group(pageId).NewItemAdded(item);
+            Clients.Group(pageId, Context.ConnectionId).SquareDeleted(id);
+        }
+
+        public void SquareMove(Square square, int page)
+        {
+            CheckSecurity();
+            var pageId = page.ToString();
+            Clients.Group(pageId, Context.ConnectionId).SquareMoved(square);
+        }
+
+        public void SquareAdd(Square square, int page)
+        {
+            CheckSecurity();
+            var pageId = page.ToString();
+            Clients.Group(pageId, Context.ConnectionId).SquareAdded(square);
         }
 
         public async Task JoinPage(int page)
@@ -25,7 +40,6 @@ namespace WebRealTime
 
         public Task LeavePage(int page)
         {
-            //to może być wolane póżniej niż logout, powinno być w jednym callu
             CheckSecurity();
             var pageId = page.ToString();
             return Groups.Remove(Context.ConnectionId, pageId);

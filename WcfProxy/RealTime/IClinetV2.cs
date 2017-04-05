@@ -1,7 +1,7 @@
 using System;
 using Shared;
 
-namespace WebRealTime
+namespace WcfProxy.RealTime
 {
     public interface IClinetV2
     {

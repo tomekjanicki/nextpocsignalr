@@ -1,6 +1,6 @@
 ﻿using Owin;
 
-namespace WebRealTime
+namespace WcfProxy
 {
     public class Startup
     {
