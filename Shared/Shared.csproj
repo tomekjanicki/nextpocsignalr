@@ -45,6 +45,7 @@
     <Compile Include="GetPagesV1.cs" />
     <Compile Include="GetPagesV2.cs" />
     <Compile Include="GetSquaresV2.cs" />
+    <Compile Include="InsertSquareV2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Square.cs" />
     <Compile Include="WebContextData.cs" />

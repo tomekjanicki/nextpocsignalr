@@ -35,7 +35,7 @@ namespace Wcf.Tests.Code
         }
 
         [Test]
-        public void InsertOrUpdateSquareAsInsertAndGetSquares_ShouldHaveOneMoreItem()
+        public void InsertSquareAndGetSquares_ShouldHaveOneMoreItem()
         {
             const int page = 1;
 
@@ -43,7 +43,7 @@ namespace Wcf.Tests.Code
 
             var square = new Square { Id = Guid.NewGuid(), Left = 0, Top = 50 };
 
-            _whiteboardV2Proxy.InsertOrUpdateSquare(page, square);
+            _whiteboardV2Proxy.InsertSquare(page, square);
 
             var result = _whiteboardV2Proxy.GetSquares(page).ToList();
 
@@ -53,7 +53,7 @@ namespace Wcf.Tests.Code
         }
 
         [Test]
-        public void InsertOrUpdateSquareAsInsertAndSaveChangesAndGetSquares_ShouldHaveOneMoreItem()
+        public void InsertSquareAndSaveChangesAndGetSquares_ShouldHaveOneMoreItem()
         {
             const int page = 1;
 
@@ -61,7 +61,7 @@ namespace Wcf.Tests.Code
 
             var square = new Square { Id = Guid.NewGuid(), Left = 0, Top = 50 };
 
-            _whiteboardV2Proxy.InsertOrUpdateSquare(page, square);
+            _whiteboardV2Proxy.InsertSquare(page, square);
 
             _whiteboardV2Proxy.SaveChanges(page);
 
@@ -73,7 +73,7 @@ namespace Wcf.Tests.Code
         }
 
         [Test]
-        public void InsertOrUpdateSquareAsUpdateAndGetSquares_ShouldHaveTheSameNumberOfItems()
+        public void UpdateSquareAndGetSquares_ShouldHaveTheSameNumberOfItems()
         {
             const int page = 1;
 
@@ -85,7 +85,7 @@ namespace Wcf.Tests.Code
 
             square.Left = newLeft;
 
-            _whiteboardV2Proxy.InsertOrUpdateSquare(page, square);
+            _whiteboardV2Proxy.UpdateSquare(page, square);
 
             var result = _whiteboardV2Proxy.GetSquares(page).ToList();
 
@@ -97,7 +97,7 @@ namespace Wcf.Tests.Code
         }
 
         [Test]
-        public void InsertOrUpdateSquareAsUpdateAndSaveChangesAndGetSquares_ShouldHaveTheSameNumberOfItems()
+        public void UpdateSquareAndSaveChangesAndGetSquares_ShouldHaveTheSameNumberOfItems()
         {
             const int page = 1;
 
@@ -109,7 +109,7 @@ namespace Wcf.Tests.Code
 
             square.Left = newLeft;
 
-            _whiteboardV2Proxy.InsertOrUpdateSquare(page, square);
+            _whiteboardV2Proxy.UpdateSquare(page, square);
 
             _whiteboardV2Proxy.SaveChanges(page);
 

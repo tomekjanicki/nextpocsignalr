@@ -36,7 +36,7 @@ namespace Wcf.Code
             }
         }
 
-        public void InsertOrUpdateSquare(int page, Square square)
+        public void InsertSquare(int page, Square square)
         {
             lock (_pagesWithSquares)
             {
@@ -44,18 +44,26 @@ namespace Wcf.Code
                 var tuple = _pagesWithSquares[page];
                 var dictionary = tuple.Item2;
 
-                if (dictionary.ContainsKey(square.Id))
-                {
-                    dictionary[square.Id] = square;
-                }
-                else
-                {
-                    dictionary.Add(square.Id, square);
-                }
+                dictionary.Add(square.Id, square);
 
                 _pagesWithSquares[page] = new Tuple<bool, Dictionary<Guid, Square>>(true, dictionary);
             }
         }
+
+        public void UpdateSquare(int page, Square square)
+        {
+            lock (_pagesWithSquares)
+            {
+                InitPage(page);
+                var tuple = _pagesWithSquares[page];
+                var dictionary = tuple.Item2;
+
+                dictionary[square.Id] = square;
+
+                _pagesWithSquares[page] = new Tuple<bool, Dictionary<Guid, Square>>(true, dictionary);
+            }
+        }
+
 
         public void DeleteSquare(int page, Guid id)
         {

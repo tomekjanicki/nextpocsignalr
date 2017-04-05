@@ -17,7 +17,10 @@ namespace Wcf
         WebContextData WhiteBoardV2DeleteSquare(Guid id, int page, WebContextData data);
 
         [OperationContract]
-        WebContextData WhiteBoardV2InsertOrUpdateSquare(Square square, int page, WebContextData data);
+        WebContextData WhiteBoardV2UpdateSquare(Square square, int page, WebContextData data);
+
+        [OperationContract]
+        InsertSquareV2 WhiteBoardV2InsertSquare(double left, double top, int page, WebContextData data);
 
         [OperationContract]
         GetPagesV2 WhiteBoardV2GetPages(WebContextData data);

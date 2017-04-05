@@ -22,8 +22,12 @@ namespace WcfProxy
         void WhiteBoardV2DeleteSquare(Guid id, int page);
 
         [OperationContract]
-        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped, UriTemplate = "/WhiteBoardV2InsertOrUpdateSquare")]
-        void WhiteBoardV2InsertOrUpdateSquare(Square square, int page);
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped, UriTemplate = "/WhiteBoardV2InsertSquare")]
+        Guid WhiteBoardV2InsertSquare(int left, int top, int page);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped, UriTemplate = "/WhiteBoardV2UpdateSquare")]
+        void WhiteBoardV2UpdateSquare(Square square, int page);
 
         [OperationContract]
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "/WhiteBoardV2GetPages")]

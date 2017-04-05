@@ -39,6 +39,16 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Square" nillable="true" type="tns:Square" />
+  <xs:complexType name="InsertSquareV2">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Id" type="ser:guid" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="InsertSquareV2" nillable="true" type="tns:InsertSquareV2" />
   <xs:complexType name="GetPagesV2">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Base">

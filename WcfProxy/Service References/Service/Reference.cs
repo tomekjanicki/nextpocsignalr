@@ -33,11 +33,17 @@ namespace WcfProxy.Service {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV2DeleteSquare", ReplyAction="http://tempuri.org/IService/WhiteBoardV2DeleteSquareResponse")]
         System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardV2DeleteSquareAsync(System.Guid id, int page, Shared.WebContextData data);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV2InsertOrUpdateSquare", ReplyAction="http://tempuri.org/IService/WhiteBoardV2InsertOrUpdateSquareResponse")]
-        Shared.WebContextData WhiteBoardV2InsertOrUpdateSquare(Shared.Square square, int page, Shared.WebContextData data);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV2UpdateSquare", ReplyAction="http://tempuri.org/IService/WhiteBoardV2UpdateSquareResponse")]
+        Shared.WebContextData WhiteBoardV2UpdateSquare(Shared.Square square, int page, Shared.WebContextData data);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV2InsertOrUpdateSquare", ReplyAction="http://tempuri.org/IService/WhiteBoardV2InsertOrUpdateSquareResponse")]
-        System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardV2InsertOrUpdateSquareAsync(Shared.Square square, int page, Shared.WebContextData data);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV2UpdateSquare", ReplyAction="http://tempuri.org/IService/WhiteBoardV2UpdateSquareResponse")]
+        System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardV2UpdateSquareAsync(Shared.Square square, int page, Shared.WebContextData data);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV2InsertSquare", ReplyAction="http://tempuri.org/IService/WhiteBoardV2InsertSquareResponse")]
+        Shared.InsertSquareV2 WhiteBoardV2InsertSquare(double left, double top, int page, Shared.WebContextData data);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV2InsertSquare", ReplyAction="http://tempuri.org/IService/WhiteBoardV2InsertSquareResponse")]
+        System.Threading.Tasks.Task<Shared.InsertSquareV2> WhiteBoardV2InsertSquareAsync(double left, double top, int page, Shared.WebContextData data);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV2GetPages", ReplyAction="http://tempuri.org/IService/WhiteBoardV2GetPagesResponse")]
         Shared.GetPagesV2 WhiteBoardV2GetPages(Shared.WebContextData data);
@@ -133,12 +139,20 @@ namespace WcfProxy.Service {
             return base.Channel.WhiteBoardV2DeleteSquareAsync(id, page, data);
         }
         
-        public Shared.WebContextData WhiteBoardV2InsertOrUpdateSquare(Shared.Square square, int page, Shared.WebContextData data) {
-            return base.Channel.WhiteBoardV2InsertOrUpdateSquare(square, page, data);
+        public Shared.WebContextData WhiteBoardV2UpdateSquare(Shared.Square square, int page, Shared.WebContextData data) {
+            return base.Channel.WhiteBoardV2UpdateSquare(square, page, data);
         }
         
-        public System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardV2InsertOrUpdateSquareAsync(Shared.Square square, int page, Shared.WebContextData data) {
-            return base.Channel.WhiteBoardV2InsertOrUpdateSquareAsync(square, page, data);
+        public System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardV2UpdateSquareAsync(Shared.Square square, int page, Shared.WebContextData data) {
+            return base.Channel.WhiteBoardV2UpdateSquareAsync(square, page, data);
+        }
+        
+        public Shared.InsertSquareV2 WhiteBoardV2InsertSquare(double left, double top, int page, Shared.WebContextData data) {
+            return base.Channel.WhiteBoardV2InsertSquare(left, top, page, data);
+        }
+        
+        public System.Threading.Tasks.Task<Shared.InsertSquareV2> WhiteBoardV2InsertSquareAsync(double left, double top, int page, Shared.WebContextData data) {
+            return base.Channel.WhiteBoardV2InsertSquareAsync(left, top, page, data);
         }
         
         public Shared.GetPagesV2 WhiteBoardV2GetPages(Shared.WebContextData data) {

@@ -37,16 +37,21 @@ namespace WcfProxy
             }
         }
 
-        public void WhiteBoardV2InsertOrUpdateSquare(Square square, int page)
+        public Guid WhiteBoardV2InsertSquare(int left, int top, int page)
         {
             using (var client = new ServiceClient())
             {
-                if (square.Id == Guid.Empty)
-                {
-                    square.Id = Guid.NewGuid();
-                }
+                var data = client.WhiteBoardV2InsertSquare(left, top, page, GetContextData());
+                _webOperationContextWrapper.UpdateContext(data.Data);
+                return data.Id;
+            }
+        }
 
-                var data = client.WhiteBoardV2InsertOrUpdateSquare(square, page, GetContextData());
+        public void WhiteBoardV2UpdateSquare(Square square, int page)
+        {
+            using (var client = new ServiceClient())
+            {
+                var data = client.WhiteBoardV2UpdateSquare(square, page, GetContextData());
                 _webOperationContextWrapper.UpdateContext(data);
             }
         }

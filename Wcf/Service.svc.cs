@@ -34,12 +34,21 @@ namespace Wcf
             return data;
         }
 
-        public WebContextData WhiteBoardV2InsertOrUpdateSquare(Square square, int page, WebContextData data)
+        public WebContextData WhiteBoardV2UpdateSquare(Square square, int page, WebContextData data)
         {
             var sessionId = GetSessionId(data);
             _authentication.CheckSession(sessionId);
-            _whiteboardV2Proxy.InsertOrUpdateSquare(page, square);
+            _whiteboardV2Proxy.UpdateSquare(page, square);
             return data;
+        }
+
+        public InsertSquareV2 WhiteBoardV2InsertSquare(double left, double top, int page, WebContextData data)
+        {
+            var sessionId = GetSessionId(data);
+            _authentication.CheckSession(sessionId);
+            var square = new Square { Id = Guid.NewGuid(), Left = left, Top = top };
+            _whiteboardV2Proxy.UpdateSquare(page, square);
+            return new InsertSquareV2 { Data = data, Id = square.Id };
         }
 
         public GetPagesV2 WhiteBoardV2GetPages(WebContextData data)

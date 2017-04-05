@@ -103,6 +103,7 @@
     <Content Include="Properties\DataSources\Shared.GetPagesV1.datasource" />
     <Content Include="Properties\DataSources\Shared.GetPagesV2.datasource" />
     <Content Include="Properties\DataSources\Shared.GetSquaresV2.datasource" />
+    <Content Include="Properties\DataSources\Shared.InsertSquareV2.datasource" />
     <None Include="Service References\Service\Service.wsdl" />
     <None Include="Service References\Service\Service.xsd">
       <SubType>Designer</SubType>
@@ -137,6 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IClientV1.cs" />
+    <Compile Include="IClinetV2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\Service\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -145,6 +147,7 @@
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="WhiteBoardHubV1.cs" />
+    <Compile Include="WhiteBoardHubV2.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

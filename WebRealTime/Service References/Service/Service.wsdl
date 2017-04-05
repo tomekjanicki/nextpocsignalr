@@ -26,11 +26,17 @@
   <wsdl:message name="IService_WhiteBoardV2DeleteSquare_OutputMessage">
     <wsdl:part name="parameters" element="tns:WhiteBoardV2DeleteSquareResponse" />
   </wsdl:message>
-  <wsdl:message name="IService_WhiteBoardV2InsertOrUpdateSquare_InputMessage">
-    <wsdl:part name="parameters" element="tns:WhiteBoardV2InsertOrUpdateSquare" />
+  <wsdl:message name="IService_WhiteBoardV2UpdateSquare_InputMessage">
+    <wsdl:part name="parameters" element="tns:WhiteBoardV2UpdateSquare" />
   </wsdl:message>
-  <wsdl:message name="IService_WhiteBoardV2InsertOrUpdateSquare_OutputMessage">
-    <wsdl:part name="parameters" element="tns:WhiteBoardV2InsertOrUpdateSquareResponse" />
+  <wsdl:message name="IService_WhiteBoardV2UpdateSquare_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WhiteBoardV2UpdateSquareResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_WhiteBoardV2InsertSquare_InputMessage">
+    <wsdl:part name="parameters" element="tns:WhiteBoardV2InsertSquare" />
+  </wsdl:message>
+  <wsdl:message name="IService_WhiteBoardV2InsertSquare_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WhiteBoardV2InsertSquareResponse" />
   </wsdl:message>
   <wsdl:message name="IService_WhiteBoardV2GetPages_InputMessage">
     <wsdl:part name="parameters" element="tns:WhiteBoardV2GetPages" />
@@ -87,9 +93,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IService/WhiteBoardV2DeleteSquare" message="tns:IService_WhiteBoardV2DeleteSquare_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService/WhiteBoardV2DeleteSquareResponse" message="tns:IService_WhiteBoardV2DeleteSquare_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="WhiteBoardV2InsertOrUpdateSquare">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService/WhiteBoardV2InsertOrUpdateSquare" message="tns:IService_WhiteBoardV2InsertOrUpdateSquare_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService/WhiteBoardV2InsertOrUpdateSquareResponse" message="tns:IService_WhiteBoardV2InsertOrUpdateSquare_OutputMessage" />
+    <wsdl:operation name="WhiteBoardV2UpdateSquare">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/WhiteBoardV2UpdateSquare" message="tns:IService_WhiteBoardV2UpdateSquare_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/WhiteBoardV2UpdateSquareResponse" message="tns:IService_WhiteBoardV2UpdateSquare_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WhiteBoardV2InsertSquare">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/WhiteBoardV2InsertSquare" message="tns:IService_WhiteBoardV2InsertSquare_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/WhiteBoardV2InsertSquareResponse" message="tns:IService_WhiteBoardV2InsertSquare_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="WhiteBoardV2GetPages">
       <wsdl:input wsaw:Action="http://tempuri.org/IService/WhiteBoardV2GetPages" message="tns:IService_WhiteBoardV2GetPages_InputMessage" />
@@ -149,8 +159,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="WhiteBoardV2InsertOrUpdateSquare">
-      <soap:operation soapAction="http://tempuri.org/IService/WhiteBoardV2InsertOrUpdateSquare" style="document" />
+    <wsdl:operation name="WhiteBoardV2UpdateSquare">
+      <soap:operation soapAction="http://tempuri.org/IService/WhiteBoardV2UpdateSquare" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WhiteBoardV2InsertSquare">
+      <soap:operation soapAction="http://tempuri.org/IService/WhiteBoardV2InsertSquare" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
