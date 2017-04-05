@@ -16,31 +16,40 @@ namespace Wcf.Code
 
         public Guid Login(string userName, string password)
         {
-            var user = Users.FirstOrDefault(u => u.UserName.ToLower() == userName.ToLower() && u.Password == password);
-            if (user == null)
+            lock (Users)
             {
-                throw new InvalidOperationException();
-            }                
-            var sessionId = Guid.NewGuid();
-            user.SessionId = sessionId;
-            return sessionId;
+                var user = Users.FirstOrDefault(u => u.UserName.ToLower() == userName.ToLower() && u.Password == password);
+                if (user == null)
+                {
+                    throw new InvalidOperationException();
+                }
+                var sessionId = Guid.NewGuid();
+                user.SessionId = sessionId;
+                return sessionId;
+            }
         }
 
         public void CheckSession(Guid sessionId)
         {
-            var user = Users.FirstOrDefault(u => u.SessionId != null && u.SessionId.Value == sessionId);
-            if (user == null)
+            lock (Users)
             {
-                throw new InvalidOperationException();
+                var user = Users.FirstOrDefault(u => u.SessionId != null && u.SessionId.Value == sessionId);
+                if (user == null)
+                {
+                    throw new InvalidOperationException();
+                }
             }
         }
 
         public void Logout(Guid sessionId)
         {
-            var user = Users.FirstOrDefault(u => u.SessionId != null && u.SessionId.Value == sessionId);
-            if (user != null)
+            lock (Users)
             {
-                user.SessionId = null;
+                var user = Users.FirstOrDefault(u => u.SessionId != null && u.SessionId.Value == sessionId);
+                if (user != null)
+                {
+                    user.SessionId = null;
+                }
             }
         }
 

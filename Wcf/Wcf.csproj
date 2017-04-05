@@ -68,6 +68,8 @@
     <Compile Include="Code\Authentication.cs" />
     <Compile Include="Code\StoredWebOperationContext.cs" />
     <Compile Include="Code\WhiteboardV1.cs" />
+    <Compile Include="Code\WhiteboardV2.cs" />
+    <Compile Include="Code\WhiteboardV2Proxy.cs" />
     <Compile Include="Service.svc.cs">
       <DependentUpon>Service.svc</DependentUpon>
     </Compile>

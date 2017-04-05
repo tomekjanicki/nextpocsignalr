@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using System;
+using System.ServiceModel;
 using Shared;
 
 namespace Wcf
@@ -6,6 +7,21 @@ namespace Wcf
     [ServiceContract]
     public interface IService
     {
+        [OperationContract]
+        WebContextData WhiteBoardV2SaveChanges(int page, WebContextData data);
+
+        [OperationContract]
+        GetSquaresV2 WhiteBoardV2GetSquares(int page, WebContextData data);
+
+        [OperationContract]
+        WebContextData WhiteBoardV2DeleteSquare(Guid id, int page, WebContextData data);
+
+        [OperationContract]
+        WebContextData WhiteBoardV2InsertOrUpdateSquare(Square square, int page, WebContextData data);
+
+        [OperationContract]
+        GetPagesV2 WhiteBoardV2GetPages(WebContextData data);
+
         [OperationContract]
         WebContextData WhiteBoardV1AddItem(int item, int page, WebContextData data);
 

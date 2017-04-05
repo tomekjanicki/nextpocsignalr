@@ -9,6 +9,45 @@ namespace Wcf
     {
         private readonly Authentication _authentication = new Authentication();
         private readonly WhiteboardV1 _whiteboardV1 = new WhiteboardV1();
+        private readonly WhiteboardV2Proxy _whiteboardV2Proxy = new WhiteboardV2Proxy();
+
+        public WebContextData WhiteBoardV2SaveChanges(int page, WebContextData data)
+        {
+            var sessionId = GetSessionId(data);
+            _authentication.CheckSession(sessionId);
+            _whiteboardV2Proxy.SaveChanges(page);
+            return data;
+        }
+
+        public GetSquaresV2 WhiteBoardV2GetSquares(int page, WebContextData data)
+        {
+            var sessionId = GetSessionId(data);
+            _authentication.CheckSession(sessionId);
+            return new GetSquaresV2 { Data = data, Squares = _whiteboardV2Proxy.GetSquares(page) };
+        }
+
+        public WebContextData WhiteBoardV2DeleteSquare(Guid id, int page, WebContextData data)
+        {
+            var sessionId = GetSessionId(data);
+            _authentication.CheckSession(sessionId);
+            _whiteboardV2Proxy.DeleteSquare(page, id);
+            return data;
+        }
+
+        public WebContextData WhiteBoardV2InsertOrUpdateSquare(Square square, int page, WebContextData data)
+        {
+            var sessionId = GetSessionId(data);
+            _authentication.CheckSession(sessionId);
+            _whiteboardV2Proxy.InsertOrUpdateSquare(page, square);
+            return data;
+        }
+
+        public GetPagesV2 WhiteBoardV2GetPages(WebContextData data)
+        {
+            var sessionId = GetSessionId(data);
+            _authentication.CheckSession(sessionId);
+            return new GetPagesV2 { Data = data, Items = _whiteboardV2Proxy.GetPages() };
+        }
 
         public WebContextData WhiteBoardV1AddItem(int item, int page, WebContextData data)
         {

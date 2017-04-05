@@ -15,6 +15,36 @@ namespace WcfProxy.Service {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Service.IService")]
     public interface IService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV2SaveChanges", ReplyAction="http://tempuri.org/IService/WhiteBoardV2SaveChangesResponse")]
+        Shared.WebContextData WhiteBoardV2SaveChanges(int page, Shared.WebContextData data);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV2SaveChanges", ReplyAction="http://tempuri.org/IService/WhiteBoardV2SaveChangesResponse")]
+        System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardV2SaveChangesAsync(int page, Shared.WebContextData data);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV2GetSquares", ReplyAction="http://tempuri.org/IService/WhiteBoardV2GetSquaresResponse")]
+        Shared.GetSquaresV2 WhiteBoardV2GetSquares(int page, Shared.WebContextData data);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV2GetSquares", ReplyAction="http://tempuri.org/IService/WhiteBoardV2GetSquaresResponse")]
+        System.Threading.Tasks.Task<Shared.GetSquaresV2> WhiteBoardV2GetSquaresAsync(int page, Shared.WebContextData data);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV2DeleteSquare", ReplyAction="http://tempuri.org/IService/WhiteBoardV2DeleteSquareResponse")]
+        Shared.WebContextData WhiteBoardV2DeleteSquare(System.Guid id, int page, Shared.WebContextData data);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV2DeleteSquare", ReplyAction="http://tempuri.org/IService/WhiteBoardV2DeleteSquareResponse")]
+        System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardV2DeleteSquareAsync(System.Guid id, int page, Shared.WebContextData data);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV2InsertOrUpdateSquare", ReplyAction="http://tempuri.org/IService/WhiteBoardV2InsertOrUpdateSquareResponse")]
+        Shared.WebContextData WhiteBoardV2InsertOrUpdateSquare(Shared.Square square, int page, Shared.WebContextData data);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV2InsertOrUpdateSquare", ReplyAction="http://tempuri.org/IService/WhiteBoardV2InsertOrUpdateSquareResponse")]
+        System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardV2InsertOrUpdateSquareAsync(Shared.Square square, int page, Shared.WebContextData data);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV2GetPages", ReplyAction="http://tempuri.org/IService/WhiteBoardV2GetPagesResponse")]
+        Shared.GetPagesV2 WhiteBoardV2GetPages(Shared.WebContextData data);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV2GetPages", ReplyAction="http://tempuri.org/IService/WhiteBoardV2GetPagesResponse")]
+        System.Threading.Tasks.Task<Shared.GetPagesV2> WhiteBoardV2GetPagesAsync(Shared.WebContextData data);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV1AddItem", ReplyAction="http://tempuri.org/IService/WhiteBoardV1AddItemResponse")]
         Shared.WebContextData WhiteBoardV1AddItem(int item, int page, Shared.WebContextData data);
         
@@ -77,6 +107,46 @@ namespace WcfProxy.Service {
         
         public ServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public Shared.WebContextData WhiteBoardV2SaveChanges(int page, Shared.WebContextData data) {
+            return base.Channel.WhiteBoardV2SaveChanges(page, data);
+        }
+        
+        public System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardV2SaveChangesAsync(int page, Shared.WebContextData data) {
+            return base.Channel.WhiteBoardV2SaveChangesAsync(page, data);
+        }
+        
+        public Shared.GetSquaresV2 WhiteBoardV2GetSquares(int page, Shared.WebContextData data) {
+            return base.Channel.WhiteBoardV2GetSquares(page, data);
+        }
+        
+        public System.Threading.Tasks.Task<Shared.GetSquaresV2> WhiteBoardV2GetSquaresAsync(int page, Shared.WebContextData data) {
+            return base.Channel.WhiteBoardV2GetSquaresAsync(page, data);
+        }
+        
+        public Shared.WebContextData WhiteBoardV2DeleteSquare(System.Guid id, int page, Shared.WebContextData data) {
+            return base.Channel.WhiteBoardV2DeleteSquare(id, page, data);
+        }
+        
+        public System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardV2DeleteSquareAsync(System.Guid id, int page, Shared.WebContextData data) {
+            return base.Channel.WhiteBoardV2DeleteSquareAsync(id, page, data);
+        }
+        
+        public Shared.WebContextData WhiteBoardV2InsertOrUpdateSquare(Shared.Square square, int page, Shared.WebContextData data) {
+            return base.Channel.WhiteBoardV2InsertOrUpdateSquare(square, page, data);
+        }
+        
+        public System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardV2InsertOrUpdateSquareAsync(Shared.Square square, int page, Shared.WebContextData data) {
+            return base.Channel.WhiteBoardV2InsertOrUpdateSquareAsync(square, page, data);
+        }
+        
+        public Shared.GetPagesV2 WhiteBoardV2GetPages(Shared.WebContextData data) {
+            return base.Channel.WhiteBoardV2GetPages(data);
+        }
+        
+        public System.Threading.Tasks.Task<Shared.GetPagesV2> WhiteBoardV2GetPagesAsync(Shared.WebContextData data) {
+            return base.Channel.WhiteBoardV2GetPagesAsync(data);
         }
         
         public Shared.WebContextData WhiteBoardV1AddItem(int item, int page, Shared.WebContextData data) {

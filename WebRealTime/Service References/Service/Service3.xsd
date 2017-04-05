@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Shared" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Shared" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Shared" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Shared" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:8091/wcf/Service.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:8091/wcf/Service.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:complexType name="WebContextData">
     <xs:sequence>
       <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="CookiesIn" nillable="true" type="q1:ArrayOfKeyValueOfstringstring" />
@@ -8,7 +9,37 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="WebContextData" nillable="true" type="tns:WebContextData" />
-  <xs:complexType name="GetItemsV1">
+  <xs:complexType name="GetSquaresV2">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Squares" nillable="true" type="tns:ArrayOfSquare" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GetSquaresV2" nillable="true" type="tns:GetSquaresV2" />
+  <xs:complexType name="Base">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Data" nillable="true" type="tns:WebContextData" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Base" nillable="true" type="tns:Base" />
+  <xs:complexType name="ArrayOfSquare">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Square" nillable="true" type="tns:Square" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSquare" nillable="true" type="tns:ArrayOfSquare" />
+  <xs:complexType name="Square">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="ser:guid" />
+      <xs:element minOccurs="0" name="Left" type="xs:double" />
+      <xs:element minOccurs="0" name="Top" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Square" nillable="true" type="tns:Square" />
+  <xs:complexType name="GetPagesV2">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Base">
         <xs:sequence>
@@ -17,18 +48,22 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="GetItemsV1" nillable="true" type="tns:GetItemsV1" />
-  <xs:complexType name="Base">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Data" nillable="true" type="tns:WebContextData" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="Base" nillable="true" type="tns:Base" />
-  <xs:complexType name="GetPagesV1">
+  <xs:element name="GetPagesV2" nillable="true" type="tns:GetPagesV2" />
+  <xs:complexType name="GetItemsV1">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Base">
         <xs:sequence>
           <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Items" nillable="true" type="q4:ArrayOfint" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GetItemsV1" nillable="true" type="tns:GetItemsV1" />
+  <xs:complexType name="GetPagesV1">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Base">
+        <xs:sequence>
+          <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Items" nillable="true" type="q5:ArrayOfint" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
