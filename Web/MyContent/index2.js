@@ -119,8 +119,20 @@ function Index2ViewModel() {
         },
         function() {
             alert("unable to delete square");
-        } 
-        );
+        });
+    }
+
+    self.moveSquare = function(square) {
+        var id = square.id();
+        var left = square.left();
+        var top = square.top();
+        var data = '{ "page": "' + self.chosenPageId() + '", "square": { "Id" :"' + id + '", "Left": "' + left + '", "Top": "' + top + '"} }';
+        ajaxPost("whiteboardv2updatesquare", data,
+        function () {
+        },
+        function () {
+            alert("unable to delete square");
+        });
     }
 
     function fillPages() {
