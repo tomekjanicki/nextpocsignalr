@@ -20,7 +20,7 @@ namespace Wcf
         WebContextData WhiteBoardV2UpdateSquare(Square square, int page, WebContextData data);
 
         [OperationContract]
-        InsertSquareV2 WhiteBoardV2InsertSquare(double left, double top, int page, WebContextData data);
+        InsertSquareV2 WhiteBoardV2InsertSquare(int left, int top, int page, WebContextData data);
 
         [OperationContract]
         GetPagesV2 WhiteBoardV2GetPages(WebContextData data);

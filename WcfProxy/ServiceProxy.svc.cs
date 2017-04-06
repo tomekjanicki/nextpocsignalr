@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.AspNet.SignalR;
 using Shared;
-using WcfProxy.RealTime;
 using WcfProxy.Service;
 
 namespace WcfProxy

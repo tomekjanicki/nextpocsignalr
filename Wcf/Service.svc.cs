@@ -42,7 +42,7 @@ namespace Wcf
             return data;
         }
 
-        public InsertSquareV2 WhiteBoardV2InsertSquare(double left, double top, int page, WebContextData data)
+        public InsertSquareV2 WhiteBoardV2InsertSquare(int left, int top, int page, WebContextData data)
         {
             var sessionId = GetSessionId(data);
             _authentication.CheckSession(sessionId);

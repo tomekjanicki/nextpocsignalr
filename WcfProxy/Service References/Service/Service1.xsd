@@ -67,8 +67,8 @@
   <xs:element name="WhiteBoardV2InsertSquare">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="left" type="xs:double" />
-        <xs:element minOccurs="0" name="top" type="xs:double" />
+        <xs:element minOccurs="0" name="left" type="xs:int" />
+        <xs:element minOccurs="0" name="top" type="xs:int" />
         <xs:element minOccurs="0" name="page" type="xs:int" />
         <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="data" nillable="true" type="q11:WebContextData" />
       </xs:sequence>
