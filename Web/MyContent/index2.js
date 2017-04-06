@@ -33,6 +33,10 @@ function Index2ViewModel(hub) {
 
     self.chosenPageId = window.ko.observable(0);
 
+    self.squareDeleted = function(id) {
+        alert(id);
+    }
+
     self.login = function () {
         var userName = self.userName();
         var password = self.password();
@@ -197,13 +201,13 @@ $(function () {
     };
 
     var whiteBoardHubV2 = $.connection.whiteBoardHubV2;
-    
-    whiteBoardHubV2.client.squareDeleted = function (id) {
-        alert(id);
-    }
+
+    var vm = new Index2ViewModel(whiteBoardHubV2);
+
+    whiteBoardHubV2.client.squareDeleted = vm.squareDeleted;
 
     $.connection.hub.start().done(function() {
-        window.ko.applyBindings(new Index2ViewModel(whiteBoardHubV2));
+        window.ko.applyBindings(vm);
     });
 });
 
