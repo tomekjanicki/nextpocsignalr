@@ -25,13 +25,13 @@ namespace Wcf.Code
 
         private static Dictionary<int, Dictionary<Guid, Square>> GetPagesWithSquares()
         {
-            var d1S1 = new Square { Id = Guid.Parse(D1S1Id), Left = 0, Top = 0 };
+            var d1S1 = new Square { Id = Guid.Parse(D1S1Id), Left = 200, Top = 0 };
 
-            var d1S2 = new Square { Id = Guid.Parse(D1S2Id), Left = 20, Top = 20 };
+            var d1S2 = new Square { Id = Guid.Parse(D1S2Id), Left = 400, Top = 0 };
 
             var d2S1 = new Square { Id = Guid.Parse(D2S1Id), Left = 0, Top = 0 };
 
-            var d2S2 = new Square { Id = Guid.Parse(D2S2Id), Left = 50, Top = 50 };
+            var d2S2 = new Square { Id = Guid.Parse(D2S2Id), Left = 220, Top = 220 };
 
             return new Dictionary<int, Dictionary<Guid, Square>>
             {

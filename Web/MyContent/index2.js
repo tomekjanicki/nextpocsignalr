@@ -7,9 +7,9 @@ function Page(id) {
 
 function Square(id, left, top) {
     var self = this;
-    self.id = id;
-    self.left = left;
-    self.top = top;
+    self.id = window.ko.observable(id);
+    self.left = window.ko.observable(left);
+    self.top = window.ko.observable(top);
 }
 
 function Index2ViewModel() {
