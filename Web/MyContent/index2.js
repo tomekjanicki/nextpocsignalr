@@ -52,7 +52,8 @@ function Index2ViewModel(hub) {
     }
 
     self.squareAdded = function (square) {
-        alert("added " + square);
+        var s = new Square(square.Id, square.Left, square.Top);
+        self.squares.push(s);
     }
 
     self.login = function () {
