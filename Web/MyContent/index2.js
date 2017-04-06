@@ -47,8 +47,21 @@ function Index2ViewModel(hub) {
         });
     }
 
-    self.squareMoved = function(square) {
-        alert("moved " + square);
+    self.squareMoved = function (square) {
+
+        var id = square.Id;
+
+        var s = window.ko.utils.arrayFirst(self.squares(), function (category) {
+            var isTrue = category.id() === id;
+            return isTrue;
+        });
+
+        if (s != null) {
+            s.top(square.Top);
+            s.left(square.Left);
+            s.topPx(square.Top + "px");
+            s.leftPx(square.Left+"px");
+        }
     }
 
     self.squareAdded = function (square) {
