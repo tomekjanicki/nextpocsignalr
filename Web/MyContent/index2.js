@@ -122,7 +122,11 @@ function Index2ViewModel() {
         });
     }
 
-    self.moveSquare = function(square) {
+    self.moveSquare = function (square, ui) {
+        square.left(Math.round(ui.position.left));
+        square.top(Math.round(ui.position.top));
+        square.leftPx(Math.round(ui.position.left) + "px");
+        square.topPx(Math.round(ui.position.top) + "px");
         var id = square.id();
         var left = square.left();
         var top = square.top();
@@ -131,7 +135,7 @@ function Index2ViewModel() {
         function () {
         },
         function () {
-            alert("unable to delete square");
+            alert("unable to move square");
         });
     }
 
@@ -175,5 +179,15 @@ function Index2ViewModel() {
         });
     }
 }
+
+ko.bindingHandlers.draggable = {
+    init: function (element, valueAccessor, allBindings, viewModel) {
+        $(element).draggable({
+            stop: function (event, ui) {
+                valueAccessor()(viewModel, ui);
+            }
+        });
+    }
+};
 
 ko.applyBindings(new Index2ViewModel());
