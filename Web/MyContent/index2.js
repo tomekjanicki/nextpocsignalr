@@ -86,7 +86,27 @@ function Index2ViewModel() {
     }
 
     self.savePage = function() {
-        alert("save page");
+        var data = '{ "page": "' + self.chosenPageId() + '" }';
+        ajaxPost("whiteboardv2savechanges", data,
+        function() {
+            alert("changes saved");
+        },
+        function() {
+            alert("unable to save changes");
+        });
+    }
+
+    self.addSquare = function() {
+        var data = '{ "page": "' + self.chosenPageId() + '", "left": "0", "top": "0" }';
+        ajaxPost("whiteboardv2insertsquare", data,
+        function (result) {
+            var id = result.WhiteBoardV2InsertSquareResult;
+            alert(id);
+            self.squares.push(new Square(id, 0, 0));
+        },
+        function () {
+            alert("unable to save changes");
+        });
     }
 
     function fillPages() {
