@@ -12,15 +12,21 @@
         <input type="button" value="login" data-bind="click: login" />
     </div>
     <div data-bind="visible: logoutVisible" style="display: none">
-        <input type="button" value="logout" data-bind="click: logout"/>
+        Logged as <span data-bind="text: userName"></span>
+        <input type="button" value="logout" data-bind="click: logout" />
     </div>
     <div data-bind="visible: pagesVisible" style="display: none">
         Pages:
         <div data-bind="foreach: pages">
-            <input type="button" data-bind="value: id, click: $parent.showPage"/>
-            <br/>
+            <input type="button" data-bind="value: id, click: $parent.showPage" />
+            <br />
         </div>
     </div>
+<div data-bind="visible: squaresVisible" style="display: none">
+    Chosen page <span data-bind="text: chosenPageId"></span>
+    <input type="button" value="back to pages" data-bind="click: backToPages"/>
+    <input type="button" value="save" data-bind="click: savePage"/>
+</div>
     <script src="Scripts/knockout-3.4.2.js"></script>
     <script src="Scripts/jquery-3.1.1.min.js"></script>
     <script src="Scripts/jquery.signalR-2.2.1.min.js"></script>

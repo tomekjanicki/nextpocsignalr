@@ -5,17 +5,29 @@ function Page(id) {
     self.id = id;
 }
 
+function Square(id, left, top) {
+    var self = this;
+    self.id = id;
+    self.left = left;
+    self.top = top;
+}
+
 function Index2ViewModel() {
     var self = this;
 
     self.loginVisible = window.ko.observable(true);
     self.logoutVisible = window.ko.observable(false);
     self.pagesVisible = window.ko.observable(false);
+    self.squaresVisible = window.ko.observable(false);
 
     self.userName = window.ko.observable("");
     self.password = window.ko.observable("");
 
     self.pages = window.ko.observableArray([]);
+
+    self.squares = window.ko.observableArray([]);
+
+    self.chosenPageId = window.ko.observable(0);
 
     self.login = function () {
         var userName = self.userName();
@@ -26,6 +38,7 @@ function Index2ViewModel() {
             self.loginVisible(false);
             self.logoutVisible(true);
             self.pagesVisible(true);
+            self.squaresVisible(false);
             fillPages();
         },
         function() {
@@ -39,6 +52,7 @@ function Index2ViewModel() {
             self.loginVisible(true);
             self.logoutVisible(false);
             self.pagesVisible(false);
+            self.squaresVisible(false);
         },
         function () {
             alert("unable to login");
@@ -46,14 +60,33 @@ function Index2ViewModel() {
     }
 
     self.showPage = function (page) {
-        var pageId = page.id;
-        ajaxGet("whiteboardv2getsquares?page=" + pageId,
+        self.chosenPageId(page.id);
+        ajaxGet("whiteboardv2getsquares?page=" + self.chosenPageId(),
         function (data) {
-            alert(data);
+            var items = [];
+            $.each(data, function (i, item) {
+                items.push(new Square(item.Id, item.Left, item.Top));
+            });
+            self.squares(items);
+            self.loginVisible(false);
+            self.logoutVisible(false);
+            self.pagesVisible(false);
+            self.squaresVisible(true);
         },
         function() {
             alert("unable to get squares");
         });
+    }
+
+    self.backToPages = function () {
+        self.loginVisible(false);
+        self.logoutVisible(true);
+        self.pagesVisible(true);
+        self.squaresVisible(false);
+    }
+
+    self.savePage = function() {
+        alert("save page");
     }
 
     function fillPages() {
