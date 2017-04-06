@@ -1,5 +1,12 @@
 ﻿/// <reference path="C:\Users\tomasz.janicki\Documents\Visual Studio 2015\Projects\WcfTest\Web\Scripts/knockout-3.4.2.js" />
 
+function SimpleSquare(id, left, top) {
+    var self = this;
+    self.Id = id;
+    self.Left = left;
+    self.Top = top;
+}
+
 function Page(id) {
     var self = this;
     self.id = id;
@@ -38,6 +45,14 @@ function Index2ViewModel(hub) {
             var isTrue = square.id() === id;
             return isTrue;
         });
+    }
+
+    self.squareMoved = function(square) {
+        alert("moved " + square);
+    }
+
+    self.squareAdded = function (square) {
+        alert("added " + square);
     }
 
     self.login = function () {
@@ -115,6 +130,8 @@ function Index2ViewModel(hub) {
         function (result) {
             var id = result.WhiteBoardV2InsertSquareResult;
             self.squares.push(new Square(id, 0, 0));
+            var simpleSquare = new SimpleSquare(id, 0, 0);
+            self.hub.server.squareAdd(simpleSquare, self.chosenPageId());
         },
         function () {
             alert("unable to save changes");
@@ -145,6 +162,8 @@ function Index2ViewModel(hub) {
         var data = '{ "page": "' + self.chosenPageId() + '", "square": { "Id" :"' + id + '", "Left": "' + left + '", "Top": "' + top + '"} }';
         ajaxPost("whiteboardv2updatesquare", data,
         function () {
+            var simpleSquare = new SimpleSquare(id, left, top);
+            self.hub.server.squareMove(simpleSquare, self.chosenPageId());
         },
         function () {
             alert("unable to move square");
@@ -208,6 +227,10 @@ $(function () {
     var vm = new Index2ViewModel(whiteBoardHubV2);
 
     whiteBoardHubV2.client.squareDeleted = vm.squareDeleted;
+
+    whiteBoardHubV2.client.squareMoved = vm.squareMoved;
+
+    whiteBoardHubV2.client.squareAdded = vm.squareAdded;
 
     $.connection.hub.start().done(function () {
         window.ko.applyBindings(vm);
