@@ -33,8 +33,11 @@ function Index2ViewModel(hub) {
 
     self.chosenPageId = window.ko.observable(0);
 
-    self.squareDeleted = function(id) {
-        alert(id);
+    self.squareDeleted = function (id) {
+        self.squares.remove(function (square) {
+            var isTrue = square.id() === id;
+            return isTrue;
+        });
     }
 
     self.login = function () {
@@ -49,12 +52,12 @@ function Index2ViewModel(hub) {
             self.squaresVisible(false);
             fillPages();
         },
-        function() {
-            alert("unable to login");    
+        function () {
+            alert("unable to login");
         });
     };
 
-    self.logout = function() {
+    self.logout = function () {
         ajaxPost("logout", "",
         function () {
             self.loginVisible(true);
@@ -82,7 +85,7 @@ function Index2ViewModel(hub) {
             self.squaresVisible(true);
             self.hub.server.joinPage(self.chosenPageId());
         },
-        function() {
+        function () {
             alert("unable to get squares");
         });
     }
@@ -95,18 +98,18 @@ function Index2ViewModel(hub) {
         self.hub.server.leavePage(self.chosenPageId());
     }
 
-    self.savePage = function() {
+    self.savePage = function () {
         var data = '{ "page": "' + self.chosenPageId() + '" }';
         ajaxPost("whiteboardv2savechanges", data,
-        function() {
+        function () {
             alert("changes saved");
         },
-        function() {
+        function () {
             alert("unable to save changes");
         });
     }
 
-    self.addSquare = function() {
+    self.addSquare = function () {
         var data = '{ "page": "' + self.chosenPageId() + '", "left": "0", "top": "0" }';
         ajaxPost("whiteboardv2insertsquare", data,
         function (result) {
@@ -122,11 +125,11 @@ function Index2ViewModel(hub) {
         var id = square.id();
         var data = '{ "page": "' + self.chosenPageId() + '", "id": "' + id + '" }';
         ajaxPost("whiteboardv2deletesquare", data,
-        function() {
+        function () {
             self.squares.remove(square);
             self.hub.server.squareDelete(id, self.chosenPageId());
         },
-        function() {
+        function () {
             alert("unable to delete square");
         });
     }
@@ -157,8 +160,8 @@ function Index2ViewModel(hub) {
             });
             self.pages(items);
         },
-        function() {
-           alert("unable to get pages"); 
+        function () {
+            alert("unable to get pages");
         });
     }
 
@@ -168,9 +171,9 @@ function Index2ViewModel(hub) {
             url: "/wcfproxy/ServiceProxy.svc/" + endpoint,
             data: data,
             contentType: "application/json; charset=UTF-8"
-        }).done(function(result) {
+        }).done(function (result) {
             doneFn(result);
-        }).fail(function() {
+        }).fail(function () {
             failFn();
         });
     }
@@ -206,7 +209,7 @@ $(function () {
 
     whiteBoardHubV2.client.squareDeleted = vm.squareDeleted;
 
-    $.connection.hub.start().done(function() {
+    $.connection.hub.start().done(function () {
         window.ko.applyBindings(vm);
     });
 });
