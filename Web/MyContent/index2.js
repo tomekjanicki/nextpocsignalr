@@ -115,7 +115,7 @@ function Index2ViewModel() {
         var data = '{ "page": "' + self.chosenPageId() + '", "id": "' + id + '" }';
         ajaxPost("whiteboardv2deletesquare", data,
         function() {
-            alert("deleted");
+            self.squares.remove(square);
         },
         function() {
             alert("unable to delete square");
