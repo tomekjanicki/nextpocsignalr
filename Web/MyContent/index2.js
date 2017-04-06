@@ -10,6 +10,8 @@ function Square(id, left, top) {
     self.id = window.ko.observable(id);
     self.left = window.ko.observable(left);
     self.top = window.ko.observable(top);
+    self.leftPx = window.ko.observable(left + "px");
+    self.topPx = window.ko.observable(top + "px");
 }
 
 function Index2ViewModel() {
@@ -101,12 +103,24 @@ function Index2ViewModel() {
         ajaxPost("whiteboardv2insertsquare", data,
         function (result) {
             var id = result.WhiteBoardV2InsertSquareResult;
-            alert(id);
             self.squares.push(new Square(id, 0, 0));
         },
         function () {
             alert("unable to save changes");
         });
+    }
+
+    self.deleteSquare = function (square) {
+        var id = square.id();
+        var data = '{ "page": "' + self.chosenPageId() + '", "id": "' + id + '" }';
+        ajaxPost("whiteboardv2deletesquare", data,
+        function() {
+            alert("deleted");
+        },
+        function() {
+            alert("unable to delete square");
+        } 
+        );
     }
 
     function fillPages() {

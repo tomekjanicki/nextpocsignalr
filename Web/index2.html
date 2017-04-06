@@ -30,12 +30,8 @@
         <br/>
         <br/>
         <br />
-        <!--<div class="container">
-            <div class="square" style="top: 0; left: 0"></div>
-            <div class="square" style="top: 0; left: 200px"></div>
-        </div>-->
         <div data-bind="foreach: squares" class="container">
-            <div class="square" data-bind="style: { left: left, top: top }"></div>
+            <div class="square" data-bind="style: { left: leftPx, top: topPx }, event: { dblclick: $parent.deleteSquare }"></div>
         </div>
     </div>
     <script src="Scripts/knockout-3.4.2.js"></script>
