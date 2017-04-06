@@ -14,8 +14,10 @@ function Square(id, left, top) {
     self.topPx = window.ko.observable(top + "px");
 }
 
-function Index2ViewModel() {
+function Index2ViewModel(hub) {
     var self = this;
+
+    self.hub = hub;
 
     self.loginVisible = window.ko.observable(true);
     self.logoutVisible = window.ko.observable(false);
@@ -74,6 +76,7 @@ function Index2ViewModel() {
             self.logoutVisible(false);
             self.pagesVisible(false);
             self.squaresVisible(true);
+            self.hub.server.joinPage(self.chosenPageId());
         },
         function() {
             alert("unable to get squares");
@@ -85,6 +88,7 @@ function Index2ViewModel() {
         self.logoutVisible(true);
         self.pagesVisible(true);
         self.squaresVisible(false);
+        self.hub.server.leavePage(self.chosenPageId());
     }
 
     self.savePage = function() {
@@ -116,6 +120,7 @@ function Index2ViewModel() {
         ajaxPost("whiteboardv2deletesquare", data,
         function() {
             self.squares.remove(square);
+            self.hub.server.squareDelete(id, self.chosenPageId());
         },
         function() {
             alert("unable to delete square");
@@ -180,14 +185,25 @@ function Index2ViewModel() {
     }
 }
 
-ko.bindingHandlers.draggable = {
-    init: function (element, valueAccessor, allBindings, viewModel) {
-        $(element).draggable({
-            stop: function (event, ui) {
-                valueAccessor()(viewModel, ui);
-            }
-        });
-    }
-};
+$(function () {
+    window.ko.bindingHandlers.draggable = {
+        init: function (element, valueAccessor, allBindings, viewModel) {
+            $(element).draggable({
+                stop: function (event, ui) {
+                    valueAccessor()(viewModel, ui);
+                }
+            });
+        }
+    };
 
-ko.applyBindings(new Index2ViewModel());
+    var whiteBoardHubV2 = $.connection.whiteBoardHubV2;
+    
+    whiteBoardHubV2.client.squareDeleted = function (id) {
+        alert(id);
+    }
+
+    $.connection.hub.start().done(function() {
+        window.ko.applyBindings(new Index2ViewModel(whiteBoardHubV2));
+    });
+});
+
