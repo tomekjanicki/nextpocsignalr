@@ -1,6 +1,4 @@
-﻿/// <reference path="C:\Users\tomasz.janicki\Documents\Visual Studio 2015\Projects\WcfTest\Web\Scripts/knockout-3.4.2.js" />
-
-function SimpleSquare(id, left, top) {
+﻿function SimpleSquare(id, left, top) {
     var self = this;
     self.Id = id;
     self.Left = left;
@@ -15,16 +13,17 @@ function Page(id) {
 function Square(id, left, top) {
     var self = this;
     self.id = window.ko.observable(id);
-    self.left = window.ko.observable(left);
-    self.top = window.ko.observable(top);
-    self.leftPx = window.ko.observable(left + "px");
-    self.topPx = window.ko.observable(top + "px");
+    self.left = window.ko.observable(Math.round(left));
+    self.top = window.ko.observable(Math.round(top));
+    self.leftPx = window.ko.observable(Math.round(left) + "px");
+    self.topPx = window.ko.observable(Math.round(top) + "px");
 }
 
-function Index2ViewModel(hub) {
+function Index2ViewModel(hub, baseUrl) {
     var self = this;
 
     self.hub = hub;
+    self.baseUrl = baseUrl;
 
     self.loginVisible = window.ko.observable(true);
     self.logoutVisible = window.ko.observable(false);
@@ -51,16 +50,13 @@ function Index2ViewModel(hub) {
 
         var id = square.Id;
 
-        var s = window.ko.utils.arrayFirst(self.squares(), function (category) {
-            var isTrue = category.id() === id;
+        var s = window.ko.utils.arrayFirst(self.squares(), function (item) {
+            var isTrue = item.id() === id;
             return isTrue;
         });
 
         if (s != null) {
-            s.top(square.Top);
-            s.left(square.Left);
-            s.topPx(square.Top + "px");
-            s.leftPx(square.Left+"px");
+            updateSquare(s, square.Left, square.Top);
         }
     }
 
@@ -100,8 +96,9 @@ function Index2ViewModel(hub) {
     }
 
     self.showPage = function (page) {
-        self.chosenPageId(page.id);
-        ajaxGet("whiteboardv2getsquares?page=" + self.chosenPageId(),
+        var pageId = page.id;
+        self.chosenPageId(pageId);
+        ajaxGet("whiteboardv2getsquares?page=" + pageId,
         function (data) {
             var items = [];
             $.each(data, function (i, item) {
@@ -112,7 +109,7 @@ function Index2ViewModel(hub) {
             self.logoutVisible(false);
             self.pagesVisible(false);
             self.squaresVisible(true);
-            self.hub.server.joinPage(self.chosenPageId());
+            self.hub.server.joinPage(pageId);
         },
         function () {
             alert("unable to get squares");
@@ -120,15 +117,17 @@ function Index2ViewModel(hub) {
     }
 
     self.backToPages = function () {
+        var pageId = self.chosenPageId();
         self.loginVisible(false);
         self.logoutVisible(true);
         self.pagesVisible(true);
         self.squaresVisible(false);
-        self.hub.server.leavePage(self.chosenPageId());
+        self.hub.server.leavePage(pageId);
     }
 
     self.savePage = function () {
-        var data = '{ "page": "' + self.chosenPageId() + '" }';
+        var pageId = self.chosenPageId();
+        var data = '{ "page": "' + pageId + '" }';
         ajaxPost("whiteboardv2savechanges", data,
         function () {
             alert("changes saved");
@@ -139,13 +138,16 @@ function Index2ViewModel(hub) {
     }
 
     self.addSquare = function () {
-        var data = '{ "page": "' + self.chosenPageId() + '", "left": "0", "top": "0" }';
+        var left = 0;
+        var top = 0;
+        var pageId = self.chosenPageId();
+        var data = '{ "page": "' + pageId + '", "left": "' + left + '", "top": "' + top + '" }';
         ajaxPost("whiteboardv2insertsquare", data,
         function (result) {
             var id = result.WhiteBoardV2InsertSquareResult;
-            self.squares.push(new Square(id, 0, 0));
-            var simpleSquare = new SimpleSquare(id, 0, 0);
-            self.hub.server.squareAdd(simpleSquare, self.chosenPageId());
+            self.squares.push(new Square(id, left, top));
+            var simpleSquare = new SimpleSquare(id, left, top);
+            self.hub.server.squareAdd(simpleSquare, pageId);
         },
         function () {
             alert("unable to save changes");
@@ -154,11 +156,12 @@ function Index2ViewModel(hub) {
 
     self.deleteSquare = function (square) {
         var id = square.id();
-        var data = '{ "page": "' + self.chosenPageId() + '", "id": "' + id + '" }';
+        var pageId = self.chosenPageId();
+        var data = '{ "page": "' + pageId + '", "id": "' + id + '" }';
         ajaxPost("whiteboardv2deletesquare", data,
         function () {
             self.squares.remove(square);
-            self.hub.server.squareDelete(id, self.chosenPageId());
+            self.hub.server.squareDelete(id, pageId);
         },
         function () {
             alert("unable to delete square");
@@ -166,18 +169,16 @@ function Index2ViewModel(hub) {
     }
 
     self.moveSquare = function (square, ui) {
-        square.left(Math.round(ui.position.left));
-        square.top(Math.round(ui.position.top));
-        square.leftPx(Math.round(ui.position.left) + "px");
-        square.topPx(Math.round(ui.position.top) + "px");
+        updateSquare(square, ui.position.left, ui.position.top);
         var id = square.id();
         var left = square.left();
         var top = square.top();
-        var data = '{ "page": "' + self.chosenPageId() + '", "square": { "Id" :"' + id + '", "Left": "' + left + '", "Top": "' + top + '"} }';
+        var pageId = self.chosenPageId();
+        var data = '{ "page": "' + pageId + '", "square": { "Id" :"' + id + '", "Left": "' + left + '", "Top": "' + top + '"} }';
         ajaxPost("whiteboardv2updatesquare", data,
         function () {
             var simpleSquare = new SimpleSquare(id, left, top);
-            self.hub.server.squareMove(simpleSquare, self.chosenPageId());
+            self.hub.server.squareMove(simpleSquare, pageId);
         },
         function () {
             alert("unable to move square");
@@ -201,7 +202,7 @@ function Index2ViewModel(hub) {
     function ajaxPost(endpoint, data, doneFn, failFn) {
         $.ajax({
             method: "POST",
-            url: "/wcfproxy/ServiceProxy.svc/" + endpoint,
+            url: self.baseUrl + endpoint,
             data: data,
             contentType: "application/json; charset=UTF-8"
         }).done(function (result) {
@@ -214,7 +215,7 @@ function Index2ViewModel(hub) {
     function ajaxGet(endpoint, doneFn, failFn) {
         $.ajax({
             method: "GET",
-            url: "/wcfproxy/ServiceProxy.svc/" + endpoint,
+            url: self.baseUrl + endpoint,
             cache: false,
             contentType: "application/json; charset=UTF-8"
         }).done(function (result) {
@@ -222,6 +223,13 @@ function Index2ViewModel(hub) {
         }).fail(function () {
             failFn();
         });
+    }
+
+    function updateSquare(square, left, top) {
+        square.left(Math.round(left));
+        square.top(Math.round(top));
+        square.leftPx(Math.round(left) + "px");
+        square.topPx(Math.round(top) + "px");
     }
 }
 
@@ -238,7 +246,7 @@ $(function () {
 
     var whiteBoardHubV2 = $.connection.whiteBoardHubV2;
 
-    var vm = new Index2ViewModel(whiteBoardHubV2);
+    var vm = new Index2ViewModel(whiteBoardHubV2, "/wcfproxy/ServiceProxy.svc/");
 
     whiteBoardHubV2.client.squareDeleted = vm.squareDeleted;
 
