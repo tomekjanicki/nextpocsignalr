@@ -1,11 +1,4 @@
-﻿function SimpleSquare(id, left, top) {
-    var self = this;
-    self.Id = id;
-    self.Left = left;
-    self.Top = top;
-}
-
-function Page(id) {
+﻿function Page(id) {
     var self = this;
     self.id = id;
 }
@@ -50,7 +43,6 @@ function Index2ViewModel(hub, baseUrl) {
     }
 
     self.squareMoved = function (square) {
-
         var id = square.Id;
 
         var s = window.ko.utils.arrayFirst(self.squares(), function (item) {
@@ -58,7 +50,7 @@ function Index2ViewModel(hub, baseUrl) {
             return isTrue;
         });
 
-        if (s != null) {
+        if (s !== null) {
             updateSquare(s, square.Left, square.Top);
         }
     }
@@ -105,9 +97,12 @@ function Index2ViewModel(hub, baseUrl) {
         self.chosenPageId(pageId);
         ajaxGet("whiteboardv2getsquares?page=" + pageId,
         function (data) {
-            self.hub.server.joinPage(pageId).done(function() {
+            var connectionId = self.hub.connection.id;
+            var postData = '{ "page": "' +pageId + '", "connectionId": "' +connectionId + '" }';
+            ajaxPost("joinPage", postData,
+            function() {
                 self.savedPageChosen = false;
-                var items = [];
+                var items =[];
                 $.each(data, function (i, item) {
                     items.push(new Square(item.Id, item.Left, item.Top));
                 });
@@ -117,7 +112,8 @@ function Index2ViewModel(hub, baseUrl) {
                 self.pagesVisible(false);
                 self.squaresVisible(true);
                 self.savedSquaresVisible(false);
-            }).fail(function() {
+            },
+            function() {
                 alert("unable to join page");
             });
         },
@@ -153,13 +149,17 @@ function Index2ViewModel(hub, baseUrl) {
         var shouldCallLeavePage = !self.savedPageChosen;
         self.savedPageChosen = false;
         if (shouldCallLeavePage) {
-            self.hub.server.leavePage(pageId).done(function() {
+            var connectionId = self.hub.connection.id;
+            var postData = '{ "page": "' + pageId + '", "connectionId": "' + connectionId + '" }';
+            ajaxPost("leavepage", postData, 
+            function() {
                 self.loginVisible(false);
                 self.logoutVisible(true);
                 self.pagesVisible(true);
                 self.squaresVisible(false);
                 self.savedSquaresVisible(false);
-            }).fail(function() {
+            },
+            function() {
                 alert("unable to leave page");
             });
         } else {
@@ -187,15 +187,12 @@ function Index2ViewModel(hub, baseUrl) {
         var left = 0;
         var top = 0;
         var pageId = self.chosenPageId();
-        var data = '{ "page": "' + pageId + '", "left": "' + left + '", "top": "' + top + '" }';
-        ajaxPost("whiteboardv2insertsquare", data,
+        var connectionId = self.hub.connection.id;
+        var data = '{ "page": "' + pageId + '", "left": "' + left + '", "top": "' + top + '", "connectionId": "' +connectionId + '" }';
+        ajaxPost("whiteboardv2insertsquarewithnotification", data,
         function (result) {
-            var id = result.WhiteBoardV2InsertSquareResult;
+            var id = result.WhiteBoardV2InsertSquareWithNotificationResult;
             self.squares.push(new Square(id, left, top));
-            var simpleSquare = new SimpleSquare(id, left, top);
-            self.hub.server.squareAdd(simpleSquare, pageId).fail(function() {
-                alert("unable sqare add notification");
-            });
         },
         function () {
             alert("unable to insert square");
@@ -205,13 +202,11 @@ function Index2ViewModel(hub, baseUrl) {
     self.deleteSquare = function (square) {
         var id = square.id();
         var pageId = self.chosenPageId();
-        var data = '{ "page": "' + pageId + '", "id": "' + id + '" }';
-        ajaxPost("whiteboardv2deletesquare", data,
+        var connectionId = self.hub.connection.id;
+        var data = '{ "page": "' + pageId + '", "id": "' + id + '", "connectionId": "' + connectionId + '" }';
+        ajaxPost("whiteboardv2deletesquarewithnotification", data,
         function () {
             self.squares.remove(square);
-            self.hub.server.squareDelete(id, pageId).fail(function () {
-                alert("unable sqare delete notification");
-            });
         },
         function () {
             alert("unable to delete square");
@@ -224,13 +219,10 @@ function Index2ViewModel(hub, baseUrl) {
         var left = square.left();
         var top = square.top();
         var pageId = self.chosenPageId();
-        var data = '{ "page": "' + pageId + '", "square": { "Id" :"' + id + '", "Left": "' + left + '", "Top": "' + top + '"} }';
-        ajaxPost("whiteboardv2updatesquare", data,
+        var connectionId = self.hub.connection.id;
+        var data = '{ "page": "' + pageId + '", "connectionId": "' + connectionId + '", "square": { "Id" :"' +id + '", "Left": "' +left + '", "Top": "' +top + '"} }';
+        ajaxPost("whiteboardv2updatesquarewithnotification", data,
         function () {
-            var simpleSquare = new SimpleSquare(id, left, top);
-            self.hub.server.squareMove(simpleSquare, pageId).fail(function () {
-                alert("unable sqare move notification");
-            });
         },
         function () {
             alert("unable to move square");

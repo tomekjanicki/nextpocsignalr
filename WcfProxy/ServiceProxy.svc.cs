@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNet.SignalR;
 using Shared;
+using WcfProxy.RealTime;
 using WcfProxy.Service;
 
 namespace WcfProxy
@@ -8,6 +11,28 @@ namespace WcfProxy
     public sealed class ServiceProxy : IServiceProxy
     {
         private readonly WebOperationContextWrapper _webOperationContextWrapper = new WebOperationContextWrapper();
+
+        public async Task JoinPage(int page, string connectionId)
+        {
+            using (var client = new ServiceClient())
+            {
+                client.ShouldSendNotification(GetContextData());
+            }
+            var pageId = page.ToString();
+            var context = GetHubContext();
+            await context.Groups.Add(connectionId, pageId).ConfigureAwait(false);
+        }
+
+        public Task LeavePage(int page, string connectionId)
+        {
+            using (var client = new ServiceClient())
+            {
+                client.ShouldSendNotification(GetContextData());
+            }
+            var pageId = page.ToString();
+            var context = GetHubContext();
+            return context.Groups.Remove(connectionId, pageId);
+        }
 
         public void WhiteBoardV2SaveChanges(int page)
         {
@@ -47,6 +72,17 @@ namespace WcfProxy
             }
         }
 
+        public void WhiteBoardV2DeleteSquareWithNotification(Guid id, int page, string connectionId)
+        {
+            using (var client = new ServiceClient())
+            {
+                var data = client.WhiteBoardV2DeleteSquare(id, page, GetContextData());
+                _webOperationContextWrapper.UpdateContext(data);
+                var context = GetHubContext();
+                context.Clients.Group(page.ToString(), connectionId).SquareDeleted(id);
+            }
+        }
+
         public Guid WhiteBoardV2InsertSquare(int left, int top, int page)
         {
             using (var client = new ServiceClient())
@@ -57,12 +93,35 @@ namespace WcfProxy
             }
         }
 
+        public Guid WhiteBoardV2InsertSquareWithNotification(int left, int top, int page, string connectionId)
+        {
+            using (var client = new ServiceClient())
+            {
+                var data = client.WhiteBoardV2InsertSquare(left, top, page, GetContextData());
+                _webOperationContextWrapper.UpdateContext(data.Data);
+                var context = GetHubContext();
+                context.Clients.Group(page.ToString(), connectionId).SquareAdded(new Square { Id = data.Id, Left = left, Top = top });
+                return data.Id;
+            }
+        }
+
         public void WhiteBoardV2UpdateSquare(Square square, int page)
         {
             using (var client = new ServiceClient())
             {
                 var data = client.WhiteBoardV2UpdateSquare(square, page, GetContextData());
                 _webOperationContextWrapper.UpdateContext(data);
+            }
+        }
+
+        public void WhiteBoardV2UpdateSquareWithNotification(Square square, int page, string connectionId)
+        {
+            using (var client = new ServiceClient())
+            {
+                var data = client.WhiteBoardV2UpdateSquare(square, page, GetContextData());
+                _webOperationContextWrapper.UpdateContext(data);
+                var context = GetHubContext();
+                context.Clients.Group(page.ToString(), connectionId).SquareMoved(square);
             }
         }
 
@@ -130,5 +189,11 @@ namespace WcfProxy
                 CookiesIn = _webOperationContextWrapper.GetAllCookies()
             };
         }
+
+        private static IHubContext<IClinetV2> GetHubContext()
+        {
+            return GlobalHost.ConnectionManager.GetHubContext<WhiteBoardHubV2, IClinetV2>();
+        }
+
     }
 }

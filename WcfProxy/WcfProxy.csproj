@@ -112,7 +112,6 @@
   <ItemGroup>
     <Compile Include="RealTime\IClientV1.cs" />
     <Compile Include="RealTime\IClinetV2.cs" />
-    <Compile Include="RealTime\MyAuthorizeAttribute.cs" />
     <Compile Include="RealTime\WhiteBoardHubV1.cs" />
     <Compile Include="RealTime\WhiteBoardHubV2.cs" />
     <Compile Include="Service References\Service\Reference.cs">
