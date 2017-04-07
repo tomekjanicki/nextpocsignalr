@@ -33,7 +33,7 @@ function Index2ViewModel(hub, baseUrl) {
 
     self.squares = window.ko.observableArray([]);
 
-    self.chosenPageId = window.ko.observable(0);
+    self.chosenPageId = window.ko.observable(null);
 
     self.squareDeleted = function (id) {
         self.squares.remove(function (square) {
@@ -79,17 +79,36 @@ function Index2ViewModel(hub, baseUrl) {
     };
 
     self.logout = function () {
-        ajaxPost("logout", "",
-        function () {
-            self.loginVisible(true);
-            self.logoutVisible(false);
-            self.pagesVisible(false);
-            self.squaresVisible(false);
-            self.savedSquaresVisible(false);
-        },
-        function () {
-            alert("unable to logout");
-        });
+        var pageId = self.chosenPageId();
+        var shouldCallLeavePage = !self.savedPageChosen && pageId !== null;
+        if (shouldCallLeavePage) {
+            var connectionId = self.hub.connection.id;
+            var postData = '{ "page": "' +pageId + '", "connectionId": "' +connectionId + '" }';
+            ajaxPost("leavepage", postData,
+            function () {
+                self.loginVisible(true);
+                self.logoutVisible(false);
+                self.pagesVisible(false);
+                self.squaresVisible(false);
+                self.savedSquaresVisible(false);
+                self.chosenPageId(null);
+                },
+            function() {
+                alert("unable to leave page");
+                });
+        } else {
+            ajaxPost("logout", "",
+            function() {
+                self.loginVisible(true);
+                self.logoutVisible(false);
+                self.pagesVisible(false);
+                self.squaresVisible(false);
+                self.savedSquaresVisible(false);
+                },
+            function () {
+                alert("unable to logout");
+                });
+        }
     }
 
     self.showPage = function (page) {
@@ -108,7 +127,7 @@ function Index2ViewModel(hub, baseUrl) {
                 });
                 self.squares(items);
                 self.loginVisible(false);
-                self.logoutVisible(false);
+                self.logoutVisible(true);
                 self.pagesVisible(false);
                 self.squaresVisible(true);
                 self.savedSquaresVisible(false);
@@ -134,7 +153,7 @@ function Index2ViewModel(hub, baseUrl) {
             });
             self.squares(items);
             self.loginVisible(false);
-            self.logoutVisible(false);
+            self.logoutVisible(true);
             self.pagesVisible(false);
             self.squaresVisible(false);
             self.savedSquaresVisible(true);
@@ -158,6 +177,7 @@ function Index2ViewModel(hub, baseUrl) {
                 self.pagesVisible(true);
                 self.squaresVisible(false);
                 self.savedSquaresVisible(false);
+                self.chosenPageId(null);
             },
             function() {
                 alert("unable to leave page");
@@ -168,6 +188,7 @@ function Index2ViewModel(hub, baseUrl) {
             self.pagesVisible(true);
             self.squaresVisible(false);
             self.savedSquaresVisible(false);
+            self.chosenPageId(null);
         }
     }
 
