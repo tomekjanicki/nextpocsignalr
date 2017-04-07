@@ -1,4 +1,5 @@
-﻿using Owin;
+﻿using Microsoft.AspNet.SignalR;
+using Owin;
 
 namespace WcfProxy
 {
@@ -6,7 +7,10 @@ namespace WcfProxy
     {
         public void Configuration(IAppBuilder appBuilder)
         {
-            appBuilder.MapSignalR();
+            appBuilder.MapSignalR(new HubConfiguration
+            {
+                EnableDetailedErrors = true
+            });
         }
     }
 }

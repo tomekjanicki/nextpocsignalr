@@ -14,21 +14,21 @@ namespace WcfProxy.RealTime
         {
             CheckSecurity();
             var pageId = page.ToString();
-            Clients.Group(pageId, Context.ConnectionId).SquareDeleted(id);
+            Clients.OthersInGroup(pageId).SquareDeleted(id);
         }
 
         public void SquareMove(Square square, int page)
         {
             CheckSecurity();
             var pageId = page.ToString();
-            Clients.Group(pageId, Context.ConnectionId).SquareMoved(square);
+            Clients.OthersInGroup(pageId).SquareMoved(square);
         }
 
         public void SquareAdd(Square square, int page)
         {
             CheckSecurity();
             var pageId = page.ToString();
-            Clients.Group(pageId, Context.ConnectionId).SquareAdded(square);
+            Clients.OthersInGroup(pageId).SquareAdded(square);
         }
 
         public async Task JoinPage(int page)
