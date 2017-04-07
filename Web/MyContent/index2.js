@@ -25,10 +25,13 @@ function Index2ViewModel(hub, baseUrl) {
     self.hub = hub;
     self.baseUrl = baseUrl;
 
+    self.savedPageChosen = false;
+
     self.loginVisible = window.ko.observable(true);
     self.logoutVisible = window.ko.observable(false);
     self.pagesVisible = window.ko.observable(false);
     self.squaresVisible = window.ko.observable(false);
+    self.savedSquaresVisible = window.ko.observable(false);
 
     self.userName = window.ko.observable("");
     self.password = window.ko.observable("");
@@ -75,6 +78,7 @@ function Index2ViewModel(hub, baseUrl) {
             self.logoutVisible(true);
             self.pagesVisible(true);
             self.squaresVisible(false);
+            self.savedSquaresVisible(false);
             fillPages();
         },
         function () {
@@ -89,6 +93,7 @@ function Index2ViewModel(hub, baseUrl) {
             self.logoutVisible(false);
             self.pagesVisible(false);
             self.squaresVisible(false);
+            self.savedSquaresVisible(false);
         },
         function () {
             alert("unable to login");
@@ -100,6 +105,7 @@ function Index2ViewModel(hub, baseUrl) {
         self.chosenPageId(pageId);
         ajaxGet("whiteboardv2getsquares?page=" + pageId,
         function (data) {
+            self.savedPageChosen = false;
             var items = [];
             $.each(data, function (i, item) {
                 items.push(new Square(item.Id, item.Left, item.Top));
@@ -109,10 +115,33 @@ function Index2ViewModel(hub, baseUrl) {
             self.logoutVisible(false);
             self.pagesVisible(false);
             self.squaresVisible(true);
+            self.savedSquaresVisible(false);
             self.hub.server.joinPage(pageId);
         },
         function () {
             alert("unable to get squares");
+        });
+    }
+
+    self.showSavedPage = function (page) {
+        var pageId = page.id;
+        self.chosenPageId(pageId);
+        ajaxGet("whiteboardv2getsavedsquares?page=" + pageId,
+        function (data) {
+            self.savedPageChosen = true;
+            var items = [];
+            $.each(data, function (i, item) {
+                items.push(new Square(item.Id, item.Left, item.Top));
+            });
+            self.squares(items);
+            self.loginVisible(false);
+            self.logoutVisible(false);
+            self.pagesVisible(false);
+            self.squaresVisible(false);
+            self.savedSquaresVisible(true);
+        },
+        function () {
+            alert("unable to get saved squares");
         });
     }
 
@@ -122,7 +151,12 @@ function Index2ViewModel(hub, baseUrl) {
         self.logoutVisible(true);
         self.pagesVisible(true);
         self.squaresVisible(false);
-        self.hub.server.leavePage(pageId);
+        self.savedSquaresVisible(false);
+        var shouldCallLeavePage = !self.savedPageChosen;
+        self.savedPageChosen = false;
+        if (shouldCallLeavePage) {
+            self.hub.server.leavePage(pageId);
+        }        
     }
 
     self.savePage = function () {

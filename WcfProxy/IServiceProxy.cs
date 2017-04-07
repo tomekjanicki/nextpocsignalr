@@ -14,6 +14,10 @@ namespace WcfProxy
         void WhiteBoardV2SaveChanges(int page);
 
         [OperationContract]
+        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "/WhiteBoardV2GetSavedSquares?page={page}")]
+        IEnumerable<Square> WhiteBoardV2GetSavedSquares(int page);
+
+        [OperationContract]
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "/WhiteBoardV2GetSquares?page={page}")]
         IEnumerable<Square> WhiteBoardV2GetSquares(int page);
 

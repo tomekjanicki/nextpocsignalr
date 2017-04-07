@@ -21,6 +21,12 @@ namespace WcfProxy.Service {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV2SaveChanges", ReplyAction="http://tempuri.org/IService/WhiteBoardV2SaveChangesResponse")]
         System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardV2SaveChangesAsync(int page, Shared.WebContextData data);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV2GetSavedSquares", ReplyAction="http://tempuri.org/IService/WhiteBoardV2GetSavedSquaresResponse")]
+        Shared.GetSquaresV2 WhiteBoardV2GetSavedSquares(int page, Shared.WebContextData data);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV2GetSavedSquares", ReplyAction="http://tempuri.org/IService/WhiteBoardV2GetSavedSquaresResponse")]
+        System.Threading.Tasks.Task<Shared.GetSquaresV2> WhiteBoardV2GetSavedSquaresAsync(int page, Shared.WebContextData data);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/WhiteBoardV2GetSquares", ReplyAction="http://tempuri.org/IService/WhiteBoardV2GetSquaresResponse")]
         Shared.GetSquaresV2 WhiteBoardV2GetSquares(int page, Shared.WebContextData data);
         
@@ -121,6 +127,14 @@ namespace WcfProxy.Service {
         
         public System.Threading.Tasks.Task<Shared.WebContextData> WhiteBoardV2SaveChangesAsync(int page, Shared.WebContextData data) {
             return base.Channel.WhiteBoardV2SaveChangesAsync(page, data);
+        }
+        
+        public Shared.GetSquaresV2 WhiteBoardV2GetSavedSquares(int page, Shared.WebContextData data) {
+            return base.Channel.WhiteBoardV2GetSavedSquares(page, data);
+        }
+        
+        public System.Threading.Tasks.Task<Shared.GetSquaresV2> WhiteBoardV2GetSavedSquaresAsync(int page, Shared.WebContextData data) {
+            return base.Channel.WhiteBoardV2GetSavedSquaresAsync(page, data);
         }
         
         public Shared.GetSquaresV2 WhiteBoardV2GetSquares(int page, Shared.WebContextData data) {

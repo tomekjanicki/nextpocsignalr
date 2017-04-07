@@ -18,6 +18,16 @@ namespace WcfProxy
             }
         }
 
+        public IEnumerable<Square> WhiteBoardV2GetSavedSquares(int page)
+        {
+            using (var client = new ServiceClient())
+            {
+                var data = client.WhiteBoardV2GetSavedSquares(page, GetContextData());
+                _webOperationContextWrapper.UpdateContext(data.Data);
+                return data.Squares;
+            }
+        }
+
         public IEnumerable<Square> WhiteBoardV2GetSquares(int page)
         {
             using (var client = new ServiceClient())

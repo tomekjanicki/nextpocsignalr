@@ -27,6 +27,15 @@ namespace Wcf.Code
 
         public IEnumerable<int> GetPages() => _whiteboardV2.GetPages();
 
+        public IEnumerable<Square> GetSavedSquares(int page)
+        {
+            lock (_pagesWithSquares)
+            {
+                return _whiteboardV2.GetSquares(page);
+            }
+        }
+
+
         public IEnumerable<Square> GetSquares(int page)
         {
             lock (_pagesWithSquares)

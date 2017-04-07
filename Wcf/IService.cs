@@ -11,6 +11,9 @@ namespace Wcf
         WebContextData WhiteBoardV2SaveChanges(int page, WebContextData data);
 
         [OperationContract]
+        GetSquaresV2 WhiteBoardV2GetSavedSquares(int page, WebContextData data);
+
+        [OperationContract]
         GetSquaresV2 WhiteBoardV2GetSquares(int page, WebContextData data);
 
         [OperationContract]

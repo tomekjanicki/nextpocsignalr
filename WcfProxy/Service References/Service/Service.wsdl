@@ -14,6 +14,12 @@
   <wsdl:message name="IService_WhiteBoardV2SaveChanges_OutputMessage">
     <wsdl:part name="parameters" element="tns:WhiteBoardV2SaveChangesResponse" />
   </wsdl:message>
+  <wsdl:message name="IService_WhiteBoardV2GetSavedSquares_InputMessage">
+    <wsdl:part name="parameters" element="tns:WhiteBoardV2GetSavedSquares" />
+  </wsdl:message>
+  <wsdl:message name="IService_WhiteBoardV2GetSavedSquares_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WhiteBoardV2GetSavedSquaresResponse" />
+  </wsdl:message>
   <wsdl:message name="IService_WhiteBoardV2GetSquares_InputMessage">
     <wsdl:part name="parameters" element="tns:WhiteBoardV2GetSquares" />
   </wsdl:message>
@@ -85,6 +91,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IService/WhiteBoardV2SaveChanges" message="tns:IService_WhiteBoardV2SaveChanges_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService/WhiteBoardV2SaveChangesResponse" message="tns:IService_WhiteBoardV2SaveChanges_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="WhiteBoardV2GetSavedSquares">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/WhiteBoardV2GetSavedSquares" message="tns:IService_WhiteBoardV2GetSavedSquares_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/WhiteBoardV2GetSavedSquaresResponse" message="tns:IService_WhiteBoardV2GetSavedSquares_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="WhiteBoardV2GetSquares">
       <wsdl:input wsaw:Action="http://tempuri.org/IService/WhiteBoardV2GetSquares" message="tns:IService_WhiteBoardV2GetSquares_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService/WhiteBoardV2GetSquaresResponse" message="tns:IService_WhiteBoardV2GetSquares_OutputMessage" />
@@ -134,6 +144,15 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="WhiteBoardV2SaveChanges">
       <soap:operation soapAction="http://tempuri.org/IService/WhiteBoardV2SaveChanges" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WhiteBoardV2GetSavedSquares">
+      <soap:operation soapAction="http://tempuri.org/IService/WhiteBoardV2GetSavedSquares" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

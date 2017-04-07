@@ -19,6 +19,13 @@ namespace Wcf
             return data;
         }
 
+        public GetSquaresV2 WhiteBoardV2GetSavedSquares(int page, WebContextData data)
+        {
+            var sessionId = GetSessionId(data);
+            _authentication.CheckSession(sessionId);
+            return new GetSquaresV2 { Data = data, Squares = _whiteboardV2Proxy.GetSavedSquares(page) };
+        }
+
         public GetSquaresV2 WhiteBoardV2GetSquares(int page, WebContextData data)
         {
             var sessionId = GetSessionId(data);

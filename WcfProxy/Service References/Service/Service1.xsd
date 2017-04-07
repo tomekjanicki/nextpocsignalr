@@ -17,7 +17,7 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="WhiteBoardV2GetSquares">
+  <xs:element name="WhiteBoardV2GetSavedSquares">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="page" type="xs:int" />
@@ -25,42 +25,57 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="WhiteBoardV2GetSavedSquaresResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="WhiteBoardV2GetSavedSquaresResult" nillable="true" type="q4:GetSquaresV2" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="WhiteBoardV2GetSquares">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="page" type="xs:int" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="data" nillable="true" type="q5:WebContextData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="WhiteBoardV2GetSquaresResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="WhiteBoardV2GetSquaresResult" nillable="true" type="q4:GetSquaresV2" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="WhiteBoardV2GetSquaresResult" nillable="true" type="q6:GetSquaresV2" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="WhiteBoardV2DeleteSquare">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="id" type="q5:guid" />
+        <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="id" type="q7:guid" />
         <xs:element minOccurs="0" name="page" type="xs:int" />
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="data" nillable="true" type="q6:WebContextData" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="data" nillable="true" type="q8:WebContextData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="WhiteBoardV2DeleteSquareResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="WhiteBoardV2DeleteSquareResult" nillable="true" type="q7:WebContextData" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="WhiteBoardV2DeleteSquareResult" nillable="true" type="q9:WebContextData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="WhiteBoardV2UpdateSquare">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="square" nillable="true" type="q8:Square" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="square" nillable="true" type="q10:Square" />
         <xs:element minOccurs="0" name="page" type="xs:int" />
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="data" nillable="true" type="q9:WebContextData" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="data" nillable="true" type="q11:WebContextData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="WhiteBoardV2UpdateSquareResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="WhiteBoardV2UpdateSquareResult" nillable="true" type="q10:WebContextData" />
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="WhiteBoardV2UpdateSquareResult" nillable="true" type="q12:WebContextData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -70,28 +85,28 @@
         <xs:element minOccurs="0" name="left" type="xs:int" />
         <xs:element minOccurs="0" name="top" type="xs:int" />
         <xs:element minOccurs="0" name="page" type="xs:int" />
-        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="data" nillable="true" type="q11:WebContextData" />
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="data" nillable="true" type="q13:WebContextData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="WhiteBoardV2InsertSquareResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="WhiteBoardV2InsertSquareResult" nillable="true" type="q12:InsertSquareV2" />
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="WhiteBoardV2InsertSquareResult" nillable="true" type="q14:InsertSquareV2" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="WhiteBoardV2GetPages">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="data" nillable="true" type="q13:WebContextData" />
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="data" nillable="true" type="q15:WebContextData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="WhiteBoardV2GetPagesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="WhiteBoardV2GetPagesResult" nillable="true" type="q14:GetPagesV2" />
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="WhiteBoardV2GetPagesResult" nillable="true" type="q16:GetPagesV2" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -100,14 +115,14 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="item" type="xs:int" />
         <xs:element minOccurs="0" name="page" type="xs:int" />
-        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="data" nillable="true" type="q15:WebContextData" />
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="data" nillable="true" type="q17:WebContextData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="WhiteBoardV1AddItemResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="WhiteBoardV1AddItemResult" nillable="true" type="q16:WebContextData" />
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="WhiteBoardV1AddItemResult" nillable="true" type="q18:WebContextData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -115,28 +130,28 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="page" type="xs:int" />
-        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="data" nillable="true" type="q17:WebContextData" />
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="data" nillable="true" type="q19:WebContextData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="WhiteBoardV1GetItemsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="WhiteBoardV1GetItemsResult" nillable="true" type="q18:GetItemsV1" />
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="WhiteBoardV1GetItemsResult" nillable="true" type="q20:GetItemsV1" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="WhiteBoardV1GetPages">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="data" nillable="true" type="q19:WebContextData" />
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="data" nillable="true" type="q21:WebContextData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="WhiteBoardV1GetPagesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="WhiteBoardV1GetPagesResult" nillable="true" type="q20:GetPagesV1" />
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="WhiteBoardV1GetPagesResult" nillable="true" type="q22:GetPagesV1" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -145,42 +160,42 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="userName" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
-        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="data" nillable="true" type="q21:WebContextData" />
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="data" nillable="true" type="q23:WebContextData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="LoginResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="LoginResult" nillable="true" type="q22:WebContextData" />
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="LoginResult" nillable="true" type="q24:WebContextData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="Logout">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="data" nillable="true" type="q23:WebContextData" />
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="data" nillable="true" type="q25:WebContextData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="LogoutResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="LogoutResult" nillable="true" type="q24:WebContextData" />
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="LogoutResult" nillable="true" type="q26:WebContextData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ShouldSendNotification">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="data" nillable="true" type="q25:WebContextData" />
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="data" nillable="true" type="q27:WebContextData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ShouldSendNotificationResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="ShouldSendNotificationResult" nillable="true" type="q26:WebContextData" />
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/Shared" minOccurs="0" name="ShouldSendNotificationResult" nillable="true" type="q28:WebContextData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
