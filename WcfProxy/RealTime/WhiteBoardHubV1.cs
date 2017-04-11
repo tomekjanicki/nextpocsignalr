@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 using Shared;
 using WcfProxy.Service;
+using Cookie = Microsoft.AspNet.SignalR.Cookie;
 
 namespace WcfProxy.RealTime
 {
@@ -25,7 +28,6 @@ namespace WcfProxy.RealTime
 
         public Task LeavePage(int page)
         {
-            //to może być wolane póżniej niż logout, powinno być w jednym callu
             CheckSecurity();
             var pageId = page.ToString();
             return Groups.Remove(Context.ConnectionId, pageId);
@@ -35,7 +37,11 @@ namespace WcfProxy.RealTime
         {
             using (var client = new ServiceClient())
             {
-                client.ShouldSendNotification(GetContextData(Context.RequestCookies));
+                var data = client.ShouldSendNotification(GetContextData(Context.RequestCookies));
+                if (data.StatusCode != HttpStatusCode.OK)
+                {
+                    throw new InvalidOperationException();
+                }
             }
         }
 

@@ -14,14 +14,14 @@ namespace Wcf.Code
         };
 
 
-        public Guid Login(string userName, string password)
+        public Guid? Login(string userName, string password)
         {
             lock (Users)
             {
                 var user = Users.FirstOrDefault(u => u.UserName.ToLower() == userName.ToLower() && u.Password == password);
                 if (user == null)
                 {
-                    throw new InvalidOperationException();
+                    return null;
                 }
                 var sessionId = Guid.NewGuid();
                 user.SessionId = sessionId;
@@ -29,15 +29,11 @@ namespace Wcf.Code
             }
         }
 
-        public void CheckSession(Guid sessionId)
+        public bool SessionExists(Guid sessionId)
         {
             lock (Users)
             {
-                var user = Users.FirstOrDefault(u => u.SessionId != null && u.SessionId.Value == sessionId);
-                if (user == null)
-                {
-                    throw new InvalidOperationException();
-                }
+                return Users.FirstOrDefault(u => u.SessionId != null && u.SessionId.Value == sessionId) != null;
             }
         }
 

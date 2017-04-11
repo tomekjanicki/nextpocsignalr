@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 using Shared;
@@ -16,22 +17,30 @@ namespace WcfProxy
         {
             using (var client = new ServiceClient())
             {
-                client.ShouldSendNotification(GetContextData());
+                var data = client.ShouldSendNotification(GetContextData());
+                if (data.StatusCode == HttpStatusCode.OK)
+                {
+                    var pageId = page.ToString();
+                    var context = GetHubContext();
+                    await context.Groups.Add(connectionId, pageId).ConfigureAwait(false);
+                }
             }
-            var pageId = page.ToString();
-            var context = GetHubContext();
-            await context.Groups.Add(connectionId, pageId).ConfigureAwait(false);
         }
 
         public Task LeavePage(int page, string connectionId)
         {
             using (var client = new ServiceClient())
             {
-                client.ShouldSendNotification(GetContextData());
+                var data = client.ShouldSendNotification(GetContextData());
+                if (data.StatusCode == HttpStatusCode.OK)
+                {
+                    var pageId = page.ToString();
+                    var context = GetHubContext();
+                    return context.Groups.Remove(connectionId, pageId);
+                }
+
+                return Task.FromResult(0);
             }
-            var pageId = page.ToString();
-            var context = GetHubContext();
-            return context.Groups.Remove(connectionId, pageId);
         }
 
         public void WhiteBoardV2SaveChanges(int page)
@@ -78,8 +87,11 @@ namespace WcfProxy
             {
                 var data = client.WhiteBoardV2DeleteSquare(id, page, GetContextData());
                 _webOperationContextWrapper.UpdateContext(data);
-                var context = GetHubContext();
-                context.Clients.Group(page.ToString(), connectionId).SquareDeleted(id);
+                if (data.StatusCode == HttpStatusCode.OK)
+                {
+                    var context = GetHubContext();
+                    context.Clients.Group(page.ToString(), connectionId).SquareDeleted(id);
+                }
             }
         }
 
@@ -99,8 +111,11 @@ namespace WcfProxy
             {
                 var data = client.WhiteBoardV2InsertSquare(left, top, page, GetContextData());
                 _webOperationContextWrapper.UpdateContext(data.Data);
-                var context = GetHubContext();
-                context.Clients.Group(page.ToString(), connectionId).SquareAdded(new Square { Id = data.Id, Left = left, Top = top });
+                if (data.Data.StatusCode == HttpStatusCode.OK)
+                {
+                    var context = GetHubContext();
+                    context.Clients.Group(page.ToString(), connectionId).SquareAdded(new Square {Id = data.Id, Left = left, Top = top});
+                }
                 return data.Id;
             }
         }
@@ -120,8 +135,11 @@ namespace WcfProxy
             {
                 var data = client.WhiteBoardV2UpdateSquare(square, page, GetContextData());
                 _webOperationContextWrapper.UpdateContext(data);
-                var context = GetHubContext();
-                context.Clients.Group(page.ToString(), connectionId).SquareMoved(square);
+                if (data.StatusCode == HttpStatusCode.OK)
+                {
+                    var context = GetHubContext();
+                    context.Clients.Group(page.ToString(), connectionId).SquareMoved(square);
+                }
             }
         }
 

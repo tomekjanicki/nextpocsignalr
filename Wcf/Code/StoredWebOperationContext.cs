@@ -1,3 +1,4 @@
+using System.Net;
 using Shared;
 
 namespace Wcf.Code
@@ -19,6 +20,12 @@ namespace Wcf.Code
         public void AddCookie(string name, string value)
         {
             _data.CookiesOut[name.ToLower()] = value;
+        }
+
+        public void ReturnStatusCode(HttpStatusCode statusCode, string statusMessage)
+        {
+            _data.StatusCode = statusCode;
+            _data.StatusMessage = statusMessage;
         }
     }
 }

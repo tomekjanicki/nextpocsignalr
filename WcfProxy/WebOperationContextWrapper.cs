@@ -19,9 +19,9 @@ namespace WcfProxy
                 {
                     return retDictionary;
                 }
-                    
 
                 var cookies = cookieHeader.Split(';');
+
                 for (var i = 0; i < cookies.Length; i++)
                 {
                     cookies[i] = cookies[i].ToLower().Trim();
@@ -53,6 +53,10 @@ namespace WcfProxy
                 {
                     WebOperationContext.Current.OutgoingResponse.Headers[HttpResponseHeader.SetCookie] = $"{cookie.ToLower()}={data.CookiesOut[cookie]}; path=/;";
                 }
+
+                WebOperationContext.Current.OutgoingResponse.StatusCode = data.StatusCode;
+
+                WebOperationContext.Current.OutgoingResponse.StatusDescription = data.StatusMessage;
             }
         }
     }
