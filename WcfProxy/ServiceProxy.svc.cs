@@ -18,6 +18,7 @@ namespace WcfProxy
             using (var client = new ServiceClient())
             {
                 var data = client.ShouldSendNotification(GetContextData());
+                _webOperationContextWrapper.UpdateContext(data);
                 if (data.StatusCode == HttpStatusCode.OK)
                 {
                     var pageId = page.ToString();
@@ -32,6 +33,7 @@ namespace WcfProxy
             using (var client = new ServiceClient())
             {
                 var data = client.ShouldSendNotification(GetContextData());
+                _webOperationContextWrapper.UpdateContext(data);
                 if (data.StatusCode == HttpStatusCode.OK)
                 {
                     var pageId = page.ToString();
@@ -45,11 +47,11 @@ namespace WcfProxy
 
         public void WhiteBoardV2SaveChanges(int page)
         {
-            using (var client = new ServiceClient())
+            Wrap(client =>
             {
                 var data = client.WhiteBoardV2SaveChanges(page, GetContextData());
                 _webOperationContextWrapper.UpdateContext(data);
-            }
+            });
         }
 
         public IEnumerable<Square> WhiteBoardV2GetSavedSquares(int page)
@@ -74,16 +76,16 @@ namespace WcfProxy
 
         public void WhiteBoardV2DeleteSquare(Guid id, int page)
         {
-            using (var client = new ServiceClient())
+            Wrap(client =>
             {
                 var data = client.WhiteBoardV2DeleteSquare(id, page, GetContextData());
                 _webOperationContextWrapper.UpdateContext(data);
-            }
+            });
         }
 
         public void WhiteBoardV2DeleteSquareWithNotification(Guid id, int page, string connectionId)
         {
-            using (var client = new ServiceClient())
+            Wrap(client =>
             {
                 var data = client.WhiteBoardV2DeleteSquare(id, page, GetContextData());
                 _webOperationContextWrapper.UpdateContext(data);
@@ -92,7 +94,7 @@ namespace WcfProxy
                     var context = GetHubContext();
                     context.Clients.Group(page.ToString(), connectionId).SquareDeleted(id);
                 }
-            }
+            });
         }
 
         public Guid WhiteBoardV2InsertSquare(int left, int top, int page)
@@ -114,7 +116,7 @@ namespace WcfProxy
                 if (data.Data.StatusCode == HttpStatusCode.OK)
                 {
                     var context = GetHubContext();
-                    context.Clients.Group(page.ToString(), connectionId).SquareAdded(new Square {Id = data.Id, Left = left, Top = top});
+                    context.Clients.Group(page.ToString(), connectionId).SquareAdded(new Square { Id = data.Id, Left = left, Top = top });
                 }
                 return data.Id;
             }
@@ -122,16 +124,16 @@ namespace WcfProxy
 
         public void WhiteBoardV2UpdateSquare(Square square, int page)
         {
-            using (var client = new ServiceClient())
+            Wrap(client =>
             {
                 var data = client.WhiteBoardV2UpdateSquare(square, page, GetContextData());
                 _webOperationContextWrapper.UpdateContext(data);
-            }
+            });
         }
 
         public void WhiteBoardV2UpdateSquareWithNotification(Square square, int page, string connectionId)
         {
-            using (var client = new ServiceClient())
+            Wrap(client =>
             {
                 var data = client.WhiteBoardV2UpdateSquare(square, page, GetContextData());
                 _webOperationContextWrapper.UpdateContext(data);
@@ -140,7 +142,7 @@ namespace WcfProxy
                     var context = GetHubContext();
                     context.Clients.Group(page.ToString(), connectionId).SquareMoved(square);
                 }
-            }
+            });
         }
 
         public IEnumerable<int> WhiteBoardV2GetPages()
@@ -155,11 +157,11 @@ namespace WcfProxy
 
         public void WhiteBoardV1AddItem(int item, int page)
         {
-            using (var client = new ServiceClient())
+            Wrap(client =>
             {
                 var data = client.WhiteBoardV1AddItem(item, page, GetContextData());
                 _webOperationContextWrapper.UpdateContext(data);
-            }
+            });
         }
 
         public IEnumerable<int> WhiteBoardV1GetItems(int page)
@@ -184,19 +186,34 @@ namespace WcfProxy
 
         public void Login(string userName, string password)
         {
-            using (var client = new ServiceClient())
+            Wrap(client =>
             {
                 var data = client.Login(userName, password, GetContextData());
                 _webOperationContextWrapper.UpdateContext(data);
-            }
+            });
         }
 
         public void Logout()
         {
-            using (var client = new ServiceClient())
+            Wrap(client =>
             {
                 var data = client.Logout(GetContextData());
                 _webOperationContextWrapper.UpdateContext(data);
+            });
+        }
+
+        private void Wrap(Action<ServiceClient> action)
+        {
+            using (var client = new ServiceClient())
+            {
+                try
+                {
+                    action(client);
+                }
+                catch (Exception)
+                {
+                    _webOperationContextWrapper.UpdateContext(new WebContextData { StatusCode = HttpStatusCode.InternalServerError });
+                }
             }
         }
 

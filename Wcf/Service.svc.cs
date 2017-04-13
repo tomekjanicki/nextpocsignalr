@@ -162,7 +162,7 @@ namespace Wcf
 
             if (sessionId == null)
             {
-                storedWebOperationContext.ReturnStatusCode(HttpStatusCode.NotFound, "User not exists or wrong userName/password");
+                storedWebOperationContext.ReturnStatusCode(HttpStatusCode.Unauthorized, "User not exists or wrong userName/password");
                 return data;
             }
 
