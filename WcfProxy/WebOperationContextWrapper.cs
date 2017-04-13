@@ -5,9 +5,9 @@ using Shared;
 
 namespace WcfProxy
 {
-    public sealed class WebOperationContextWrapper
+    public static class WebOperationContextWrapper
     {
-        public Dictionary<string, string> GetAllCookies()
+        public static Dictionary<string, string> GetAllCookies()
         {
             var retDictionary = new Dictionary<string, string>();
 
@@ -43,7 +43,7 @@ namespace WcfProxy
             return retDictionary;
         }
 
-        public void UpdateContext(WebContextData data)
+        public static void UpdateContext(WebContextData data)
         {
             if (WebOperationContext.Current != null)
             {
@@ -51,7 +51,7 @@ namespace WcfProxy
 
                 foreach (var cookie in data.CookiesOut.Keys)
                 {
-                    WebOperationContext.Current.OutgoingResponse.Headers[HttpResponseHeader.SetCookie] = $"{cookie.ToLower()}={data.CookiesOut[cookie]}; path=/;";
+                    WebOperationContext.Current.OutgoingResponse.Headers[HttpResponseHeader.SetCookie] = $"{cookie.ToLower()}={data.CookiesOut[cookie]}; path=/; Secure; HttpOnly;";
                 }
 
                 WebOperationContext.Current.OutgoingResponse.StatusCode = data.StatusCode;

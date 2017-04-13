@@ -147,7 +147,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>3617</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:8091</IISUrl>
+          <IISUrl>https://localhost</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

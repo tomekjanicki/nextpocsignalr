@@ -11,14 +11,12 @@ namespace WcfProxy
 {
     public sealed class ServiceProxy : IServiceProxy
     {
-        private readonly WebOperationContextWrapper _webOperationContextWrapper = new WebOperationContextWrapper();
-
         public async Task JoinPage(int page, string connectionId)
         {
             using (var client = new ServiceClient())
             {
                 var data = client.ShouldSendNotification(GetContextData());
-                _webOperationContextWrapper.UpdateContext(data);
+                WebOperationContextWrapper.UpdateContext(data);
                 if (data.StatusCode == HttpStatusCode.OK)
                 {
                     var pageId = page.ToString();
@@ -33,7 +31,7 @@ namespace WcfProxy
             using (var client = new ServiceClient())
             {
                 var data = client.ShouldSendNotification(GetContextData());
-                _webOperationContextWrapper.UpdateContext(data);
+                WebOperationContextWrapper.UpdateContext(data);
                 if (data.StatusCode == HttpStatusCode.OK)
                 {
                     var pageId = page.ToString();
@@ -50,7 +48,7 @@ namespace WcfProxy
             Wrap(client =>
             {
                 var data = client.WhiteBoardV2SaveChanges(page, GetContextData());
-                _webOperationContextWrapper.UpdateContext(data);
+                WebOperationContextWrapper.UpdateContext(data);
             });
         }
 
@@ -59,7 +57,7 @@ namespace WcfProxy
             using (var client = new ServiceClient())
             {
                 var data = client.WhiteBoardV2GetSavedSquares(page, GetContextData());
-                _webOperationContextWrapper.UpdateContext(data.Data);
+                WebOperationContextWrapper.UpdateContext(data.Data);
                 return data.Squares;
             }
         }
@@ -69,7 +67,7 @@ namespace WcfProxy
             using (var client = new ServiceClient())
             {
                 var data = client.WhiteBoardV2GetSquares(page, GetContextData());
-                _webOperationContextWrapper.UpdateContext(data.Data);
+                WebOperationContextWrapper.UpdateContext(data.Data);
                 return data.Squares;
             }
         }
@@ -79,7 +77,7 @@ namespace WcfProxy
             Wrap(client =>
             {
                 var data = client.WhiteBoardV2DeleteSquare(id, page, GetContextData());
-                _webOperationContextWrapper.UpdateContext(data);
+                WebOperationContextWrapper.UpdateContext(data);
             });
         }
 
@@ -88,7 +86,7 @@ namespace WcfProxy
             Wrap(client =>
             {
                 var data = client.WhiteBoardV2DeleteSquare(id, page, GetContextData());
-                _webOperationContextWrapper.UpdateContext(data);
+                WebOperationContextWrapper.UpdateContext(data);
                 if (data.StatusCode == HttpStatusCode.OK)
                 {
                     var context = GetHubContext();
@@ -102,7 +100,7 @@ namespace WcfProxy
             using (var client = new ServiceClient())
             {
                 var data = client.WhiteBoardV2InsertSquare(left, top, page, GetContextData());
-                _webOperationContextWrapper.UpdateContext(data.Data);
+                WebOperationContextWrapper.UpdateContext(data.Data);
                 return data.Id;
             }
         }
@@ -112,7 +110,7 @@ namespace WcfProxy
             using (var client = new ServiceClient())
             {
                 var data = client.WhiteBoardV2InsertSquare(left, top, page, GetContextData());
-                _webOperationContextWrapper.UpdateContext(data.Data);
+                WebOperationContextWrapper.UpdateContext(data.Data);
                 if (data.Data.StatusCode == HttpStatusCode.OK)
                 {
                     var context = GetHubContext();
@@ -127,7 +125,7 @@ namespace WcfProxy
             Wrap(client =>
             {
                 var data = client.WhiteBoardV2UpdateSquare(square, page, GetContextData());
-                _webOperationContextWrapper.UpdateContext(data);
+                WebOperationContextWrapper.UpdateContext(data);
             });
         }
 
@@ -136,7 +134,7 @@ namespace WcfProxy
             Wrap(client =>
             {
                 var data = client.WhiteBoardV2UpdateSquare(square, page, GetContextData());
-                _webOperationContextWrapper.UpdateContext(data);
+                WebOperationContextWrapper.UpdateContext(data);
                 if (data.StatusCode == HttpStatusCode.OK)
                 {
                     var context = GetHubContext();
@@ -150,7 +148,7 @@ namespace WcfProxy
             using (var client = new ServiceClient())
             {
                 var data = client.WhiteBoardV2GetPages(GetContextData());
-                _webOperationContextWrapper.UpdateContext(data.Data);
+                WebOperationContextWrapper.UpdateContext(data.Data);
                 return data.Items;
             }
         }
@@ -160,7 +158,7 @@ namespace WcfProxy
             Wrap(client =>
             {
                 var data = client.WhiteBoardV1AddItem(item, page, GetContextData());
-                _webOperationContextWrapper.UpdateContext(data);
+                WebOperationContextWrapper.UpdateContext(data);
             });
         }
 
@@ -169,7 +167,7 @@ namespace WcfProxy
             using (var client = new ServiceClient())
             {
                 var data = client.WhiteBoardV1GetItems(page, GetContextData());
-                _webOperationContextWrapper.UpdateContext(data.Data);
+                WebOperationContextWrapper.UpdateContext(data.Data);
                 return data.Items;
             }
         }
@@ -179,7 +177,7 @@ namespace WcfProxy
             using (var client = new ServiceClient())
             {
                 var data = client.WhiteBoardV1GetPages(GetContextData());
-                _webOperationContextWrapper.UpdateContext(data.Data);
+                WebOperationContextWrapper.UpdateContext(data.Data);
                 return data.Items;
             }
         }
@@ -189,7 +187,7 @@ namespace WcfProxy
             Wrap(client =>
             {
                 var data = client.Login(userName, password, GetContextData());
-                _webOperationContextWrapper.UpdateContext(data);
+                WebOperationContextWrapper.UpdateContext(data);
             });
         }
 
@@ -198,11 +196,11 @@ namespace WcfProxy
             Wrap(client =>
             {
                 var data = client.Logout(GetContextData());
-                _webOperationContextWrapper.UpdateContext(data);
+                WebOperationContextWrapper.UpdateContext(data);
             });
         }
 
-        private void Wrap(Action<ServiceClient> action)
+        private static void Wrap(Action<ServiceClient> action)
         {
             using (var client = new ServiceClient())
             {
@@ -212,16 +210,16 @@ namespace WcfProxy
                 }
                 catch (Exception)
                 {
-                    _webOperationContextWrapper.UpdateContext(new WebContextData { StatusCode = HttpStatusCode.InternalServerError });
+                    WebOperationContextWrapper.UpdateContext(new WebContextData { StatusCode = HttpStatusCode.InternalServerError });
                 }
             }
         }
 
-        private WebContextData GetContextData()
+        private static WebContextData GetContextData()
         {
             return new WebContextData
             {
-                CookiesIn = _webOperationContextWrapper.GetAllCookies()
+                CookiesIn = WebOperationContextWrapper.GetAllCookies()
             };
         }
 
