@@ -13,6 +13,7 @@ namespace WcfProxy
     {
         public async Task JoinPage(int page, string connectionId)
         {
+            //todo handle exception from ServiceClient
             using (var client = new ServiceClient())
             {
                 var data = client.ShouldSendNotification(GetContextData());
@@ -28,6 +29,7 @@ namespace WcfProxy
 
         public Task LeavePage(int page, string connectionId)
         {
+            //todo handle exception from ServiceClient
             using (var client = new ServiceClient())
             {
                 var data = client.ShouldSendNotification(GetContextData());
@@ -54,6 +56,7 @@ namespace WcfProxy
 
         public IEnumerable<Square> WhiteBoardV2GetSavedSquares(int page)
         {
+            //todo handle exception from ServiceClient
             using (var client = new ServiceClient())
             {
                 var data = client.WhiteBoardV2GetSavedSquares(page, GetContextData());
@@ -64,6 +67,7 @@ namespace WcfProxy
 
         public IEnumerable<Square> WhiteBoardV2GetSquares(int page)
         {
+            //todo handle exception from ServiceClient
             using (var client = new ServiceClient())
             {
                 var data = client.WhiteBoardV2GetSquares(page, GetContextData());
@@ -97,6 +101,7 @@ namespace WcfProxy
 
         public Guid WhiteBoardV2InsertSquare(int left, int top, int page)
         {
+            //todo handle exception from ServiceClient
             using (var client = new ServiceClient())
             {
                 var data = client.WhiteBoardV2InsertSquare(left, top, page, GetContextData());
@@ -107,6 +112,7 @@ namespace WcfProxy
 
         public Guid WhiteBoardV2InsertSquareWithNotification(int left, int top, int page, string connectionId)
         {
+            //todo handle exception from ServiceClient
             using (var client = new ServiceClient())
             {
                 var data = client.WhiteBoardV2InsertSquare(left, top, page, GetContextData());
@@ -145,6 +151,7 @@ namespace WcfProxy
 
         public IEnumerable<int> WhiteBoardV2GetPages()
         {
+            //todo handle exception from ServiceClient
             using (var client = new ServiceClient())
             {
                 var data = client.WhiteBoardV2GetPages(GetContextData());
@@ -164,6 +171,7 @@ namespace WcfProxy
 
         public IEnumerable<int> WhiteBoardV1GetItems(int page)
         {
+            //todo handle exception from ServiceClient
             using (var client = new ServiceClient())
             {
                 var data = client.WhiteBoardV1GetItems(page, GetContextData());
@@ -174,6 +182,7 @@ namespace WcfProxy
 
         public IEnumerable<int> WhiteBoardV1GetPages()
         {
+            //todo handle exception from ServiceClient
             using (var client = new ServiceClient())
             {
                 var data = client.WhiteBoardV1GetPages(GetContextData());
