@@ -51,7 +51,7 @@ namespace WcfProxy
 
                 foreach (var cookie in data.CookiesOut.Keys)
                 {
-                    WebOperationContext.Current.OutgoingResponse.Headers[HttpResponseHeader.SetCookie] = $"{cookie.ToLower()}={data.CookiesOut[cookie]}; path=/; Secure; HttpOnly;";
+                    WebOperationContext.Current.OutgoingResponse.Headers[HttpResponseHeader.SetCookie] = $"{cookie.ToLower()}={data.CookiesOut[cookie]}; path=/wcfproxy/ServiceProxy.svc; Secure; HttpOnly;";
                 }
 
                 WebOperationContext.Current.OutgoingResponse.StatusCode = data.StatusCode;

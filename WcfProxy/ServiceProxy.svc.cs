@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
@@ -11,6 +13,14 @@ namespace WcfProxy
 {
     public sealed class ServiceProxy : IServiceProxy
     {
+        public void PutPageFile(Stream body)
+        {
+            var data = ReadFully(body);
+            var context = GetContextData();
+            Debug.WriteLine(context.CookiesIn.Count);
+            Debug.WriteLine(data.Length);
+        }
+
         public async Task JoinPage(int page, string connectionId)
         {
             //todo handle exception from ServiceClient
@@ -236,6 +246,21 @@ namespace WcfProxy
         {
             return GlobalHost.ConnectionManager.GetHubContext<WhiteBoardHubV2, IClinetV2>();
         }
+
+        private static byte[] ReadFully(Stream input)
+        {
+            var buffer = new byte[16 * 1024];
+            using (var ms = new MemoryStream())
+            {
+                int read;
+                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    ms.Write(buffer, 0, read);
+                }
+                return ms.ToArray();
+            }
+        }
+
 
     }
 }

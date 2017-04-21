@@ -57,11 +57,35 @@
             <div class="square" data-bind="style: { left: leftPx, top: topPx }"></div>
         </div>
     </div>
+    <form enctype="multipart/form-data">
+        <input name="file" type="file" />
+        <input type="button" value="Upload" id="abc" />
+    </form>
     <script src="Scripts/knockout-3.4.2.js"></script>
     <script src="Scripts/jquery-3.1.1.min.js"></script>
     <script src="Scripts/jquery-ui-1.12.1.min.js"></script>
     <script src="Scripts/jquery.signalR-2.2.1.min.js"></script>
     <script src="wcfproxy/signalr/hubs"></script>
     <script src="MyContent/index2.js"></script>
+    <script type="text/javascript" language="javascript">
+        $(function () {
+            $('#abc').on('click', function () {
+                $.ajax({
+                    url: '/wcfproxy/ServiceProxy.svc/PutPageFile',
+                    type: 'POST',
+                    data: new FormData($("form")[0]),
+                    // Tell jQuery not to process data or worry about content-type
+                    // You *must* include these options!
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                }).done(function() {
+                  alert("ok");  
+                }).fail(function() {
+                    alert("fail");
+                });
+            });
+        });
+    </script>
 </body>
 </html>
